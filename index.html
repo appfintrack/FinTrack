@@ -359,7 +359,7 @@ button:active, .ft-qa:active { transform:scale(.96); }
 <div id="ftRecentActivity" class="bg-white rounded-2xl border border-stone-200 shadow-sm p-4"><div class="flex items-center justify-between mb-3"><h3 class="font-bold text-slate-800 text-sm">Recent Activity</h3><button onclick="switchTab('expenses')" class="text-xs font-bold text-indigo-600 hover:text-indigo-700">View All &rarr;</button></div><div id="ftRecentActivityList" class="space-y-1"></div></div>
 <div id="ftAdminPanel" class="hidden bg-white rounded-2xl border border-stone-200 shadow-sm p-4"></div>
 
-          <div id="overviewSummaryGrid" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div id="overviewSummaryGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div id="overviewCardBank" class="pastel-slate p-5 rounded-2xl border border-slate-200 shadow-sm"><p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Bank & Cash Balance</p><h3 class="text-2xl font-black text-slate-800 mt-2 fin-value fin-card-val" id="sumBankBalance">0</h3><p class="text-xs text-slate-500 mt-1" id="sumBankBalanceSub">All Accounts Combined</p></div>
             <div id="overviewCardLiabilities" class="pastel-red p-5 rounded-2xl border border-red-200 shadow-sm"><p class="text-xs font-bold text-red-600 uppercase tracking-wider">Total Liabilities (Real-Time)</p><h3 class="text-2xl font-black text-red-700 mt-2 fin-value fin-card-val" id="sumTotalDebts">0</h3><p class="text-xs text-red-600/80 mt-1">Remaining Debt Principal</p></div>
             <div id="overviewCardGold" class="gold-card p-5 rounded-2xl border shadow-sm"><p class="text-xs font-bold gold-text uppercase tracking-wider">Total Savings & Gold</p><h3 class="text-2xl font-black text-amber-600 mt-2 fin-value fin-card-val" id="sumGoldSip">0</h3><p class="text-xs text-amber-700/80 mt-1">Gold Today's Value + SIP</p></div>
@@ -1669,7 +1669,8 @@ window.downloadHouseholdPDF = function() {
     var _hhTotalInr = 0;
     hhExpenses.forEach(function(e){ _hhTotalInr += convertToINR(Number(e.amount||0), e.currency||'INR'); });
     crossSplits.forEach(function(e){ _hhTotalInr += convertToINR(Number(e.amount||0), e.currency||'INR'); });
-    doc.setFontSize(13); doc.setTextColor(13,148,136); doc.text('Total Month Expense: ' + formatCurrency(_hhTotalInr, 'INR'), 40, cursorY); cursorY += 20;
+    doc.setFontSize(12); doc.setTextColor(30,41,59); doc.text('Total Month Expense', 40, cursorY); cursorY += 14;
+    doc.setFillColor(6,78,59); doc.roundedRect(40, cursorY-10, 260, 16, 3, 3, 'F'); doc.setFontSize(11); doc.setTextColor(255,255,255); doc.text(formatCurrency(_hhTotalInr, 'INR'), 48, cursorY+1); cursorY += 22;
     doc.setFontSize(12); doc.setTextColor(30,41,59); doc.text('Members Summary', 40, cursorY); cursorY += 14;
     const memberBody = members.map(function(mn4) { const bal = householdBalanceByCurrency(mn4.name); const balInr = Object.keys(bal).reduce(function(s,c){return s + convertToINR(bal[c], c);},0); let status = 'Settled'; if (balInr > 0.01) status = 'To receive'; else if (balInr < -0.01) status = 'To pay'; return [mn4.name, status, formatMultiCurrency(bal)]; });
     if (members.length === 0) memberBody.push(['No members', '-', '-']);
@@ -2148,7 +2149,7 @@ function renderIndividualSummary() {
     const grandUserTotalInr = Math.round(userInrTotal);
     let currencyBreakdown = '';
     Object.keys(perCurrencyTotals).forEach(curr => { currencyBreakdown += `<span>${curr}: ${formatCurrency(perCurrencyTotals[curr], curr)}</span>`; if (Object.keys(perCurrencyTotals).indexOf(curr) < Object.keys(perCurrencyTotals).length - 1) currencyBreakdown += ' · '; });
-    container.innerHTML += `<div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 space-y-3"><div class="flex items-center justify-between border-b border-slate-700 pb-2"><span class="font-black text-sm text-amber-400 uppercase tracking-wider"><i class="fa-solid fa-user-circle mr-1.5"></i> ${person}'s Accounts</span><span class="text-xs font-black text-emerald-400">Total: ${window.formatInDisplayCurrency(grandUserTotalInr)}</span></div><div class="space-y-1">${bankItemsHtml}</div><div class="pt-2 flex justify-between text-[11px] font-bold text-slate-400 border-t border-slate-700/60"><span>${currencyBreakdown || 'No accounts'}</span></div></div>`;
+    container.innerHTML += `<div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700/80 space-y-3"><div class="flex items-center justify-between border-b border-slate-700 pb-2"><span class="font-black text-sm text-amber-400 uppercase tracking-wider"><i class="fa-solid fa-user-circle mr-1.5"></i> ${person}'s Accounts</span><span class="text-xs font-black text-emerald-400">Total: ${window.formatInDisplayCurrency(grandUserTotalInr)}</span></div><div class="space-y-1">${bankItemsHtml}</div><div class="pt-2 flex justify-center text-center text-[11px] font-bold text-slate-400 border-t border-slate-700/60"><span>${currencyBreakdown || 'No accounts'}</span></div></div>`;
   });
 }
 window.renderExpenses = function() {
@@ -2590,19 +2591,19 @@ window.ftPaidSplitCashbookRows = function() {
 };
 window._cashbookOpeningForCurrency = function(month, currency) { let opening = 0; Object.keys(state.expenses || {}).forEach(function(m){ if (m >= month) return; (state.expenses[m] || []).forEach(function(exp){ if (exp.currency !== currency || exp.isSplitShare) return; const bank = exp.deductBankId ? (state.banks||[]).find(function(b){return String(b.id)===String(exp.deductBankId);}) : null; if (bank && bank.bankType === 3) return; opening -= (exp.amount || 0); }); }); window.ftPaidSplitCashbookRows().forEach(s => { if (dateMonth(s.date)>=month || s.currency!==currency) return; const b=(state.banks||[]).find(x=>String(x.id)===String(s.accountId)); if(b && b.bankType!==3) opening-=s.amount; }); (state.transfers || []).forEach(function(t){ const m = dateMonth(t.date); if (!m || m >= month) return; if (t.fromName === 'External Deposit') { const bank = t.toId ? (state.banks||[]).find(function(b){return String(b.id)===String(t.toId);}) : null; if (!bank || bank.bankType === 3) return; if (bank.currency !== currency) return; opening += (t.amount || 0); } }); return opening; };
 window._cashbookOpeningForCard = function(month, card) { const cid = String(card.id); let opening = 0; Object.keys(state.expenses || {}).forEach(function(m){ if (m >= month) return; (state.expenses[m] || []).forEach(function(exp){ if (String(exp.deductBankId) !== cid || exp.isSplitShare) return; opening += (exp.amount || 0); }); }); window.ftPaidSplitCashbookRows().forEach(s => { if (dateMonth(s.date)<month && String(s.accountId)===cid) opening+=s.amount; }); (state.transfers || []).forEach(function(t){ const m = dateMonth(t.date); if (!m || m >= month) return; if (t.fromName === 'External Deposit' && String(t.toId) === cid) { opening -= (t.amount || 0); } else if (t.fromId && t.toId && String(t.toId) === cid) { opening -= (t.amount || 0); } }); return opening; };
+window._ftCbMode = function(bank){ if(!bank) return {mode:'',account:''}; if(bank.bankType===3) return {mode:'Credit Card',account:bank.name}; if(bank.name==='Cash in Hand') return {mode:'Cash',account:''}; return {mode:'Bank',account:bank.name}; };
 window._buildCashbookEntriesForCurrency = function(month, currency) {
   const entries = [];
   (state.expenses[month] || []).forEach(function(exp){
     if (exp.currency !== currency || exp.isSplitShare) return;
     const bank = exp.deductBankId ? (state.banks||[]).find(function(b){return String(b.id)===String(exp.deductBankId);}) : null;
     if (bank && bank.bankType === 3) return;
-    const mode = bank ? (bank.name === 'Cash in Hand' ? 'Cash in Hand' : 'Bank') : '—';
-    const account = bank ? bank.name : '—';
+    const _ftM = window._ftCbMode(bank); const mode = _ftM.mode; const account = _ftM.account;
     entries.push({ date: exp.date || '', desc: exp.desc || '(no description)', category: exp.category || 'Other', type: 'Expense', amount: exp.amount, currency: currency, mode: mode, account: account, net: -exp.amount });
   });
   (state.householdExpenses || []).forEach(function(exp){
     if (dateMonth(exp.date) !== month || exp.currency !== currency) return;
-    entries.push({ date: exp.date || '', desc: 'Household: ' + (exp.description || '(no description)'), category: exp.category || 'Household', type: 'Expense', amount: exp.amount, currency: currency, mode: '—', account: '—', net: -exp.amount });
+    const _hb = exp.deductBankId ? (state.banks||[]).find(function(b){return String(b.id)===String(exp.deductBankId);}) : null; const _hm = window._ftCbMode(_hb); entries.push({ date: exp.date || '', desc: 'Household: ' + (exp.description || '(no description)'), category: exp.category || 'Household', type: 'Expense', amount: exp.amount, currency: currency, mode: _hm.mode, account: _hm.account, net: -exp.amount });
   });
    window.ftPaidSplitCashbookRows().forEach(s => { if(dateMonth(s.date)!==month || s.currency!==currency) return; const b=(state.banks||[]).find(x=>String(x.id)===String(s.accountId)); if(!b || b.bankType===3) return; entries.push({date:s.date,desc:s.description,category:'Split',type:'Expense',amount:s.amount,currency,mode:b.name==='Cash in Hand'?'Cash in Hand':'Bank',account:b.name,net:-s.amount}); });
    (state.transfers || []).forEach(function(t){
@@ -2734,10 +2735,10 @@ window.downloadCashbookPDF = function(mode) {
   const currencies = window._cashbookCurrencies(month);
   function addTable(title, entries, currency) {
     doc.setFontSize(12); doc.setTextColor(30,41,59); doc.text(title + ' (' + currency + ')', 40, cursorY); cursorY += 14;
-    const body = entries.map(function(e){ const isPos = (e.type === 'Income' || e.type === 'Payment'); const isNeg = (e.type === 'Expense' || e.type === 'Charge'); const sign = isPos ? '+' : (isNeg ? '-' : ''); return [e.date, e.desc, e.category, e.type, sign + formatCurrency(e.amount, e.currency), e.mode, e.account, formatCurrency(e.running, e.currency)]; });
+    let _cumExp = 0; const body = entries.map(function(e){ const isPos = (e.type === 'Income' || e.type === 'Payment'); const isNeg = (e.type === 'Expense' || e.type === 'Charge'); const sign = isPos ? '+' : (isNeg ? '-' : ''); if (isNeg) _cumExp += Number(e.amount||0); const _mode = (e.mode && e.mode !== '—' && e.mode !== '-') ? e.mode : ''; const _acct = (e.account && e.account !== '—' && e.account !== '-') ? e.account : ''; return [e.date, e.desc, e.category, e.type, sign + formatCurrency(e.amount, e.currency), _mode, _acct, formatCurrency(_cumExp, e.currency)]; });
     let incomeTotal = 0, expenseTotal = 0;
     entries.forEach(function(e){ var _amt = Number(e.amount||0); if (e.type==='Income'||e.type==='Payment') incomeTotal += _amt; else if (e.type==='Expense'||e.type==='Charge') expenseTotal += _amt; });
-    doc.autoTable({ startY: cursorY, head: [['Date','Description','Category','Type','Amount','Mode','Account','Running Bal.']], body: body, styles: { fontSize: 8, cellPadding: 3, overflow: 'linebreak' }, headStyles: { fillColor: [30,41,59], textColor: 255, fontSize: 8 }, columnStyles: { 0: { cellWidth: 55 }, 4: { halign: 'right' }, 7: { halign: 'right' } } });
+    doc.autoTable({ startY: cursorY, head: [['Date','Description','Category','Type','Amount','Mode','Account','Total Expense']], body: body, styles: { fontSize: 8, cellPadding: 3, overflow: 'linebreak' }, headStyles: { fillColor: [30,41,59], textColor: 255, fontSize: 8 }, columnStyles: { 0: { cellWidth: 55 }, 4: { halign: 'right' }, 7: { halign: 'right' } } });
     let fy = cursorY + 20; try { fy = doc.lastAutoTable.finalY + 16; } catch(e2){}
     doc.setFontSize(10); doc.text('Income Added: ' + formatCurrency(incomeTotal, currency) + '   |   Total Expense: ' + formatCurrency(expenseTotal, currency), 40, fy); cursorY = fy + 26;
     if (cursorY > 540) { doc.addPage(); cursorY = 40; }
@@ -2771,9 +2772,9 @@ window.downloadCashbookPDFByKey = function(key) {
   const entries = data.entries; const currency = data.currency;
   const opening = entries.opening || 0;
   doc.setFontSize(12); doc.setTextColor(30,41,59); doc.text(data.title + ' (' + currency + ')', 40, cursorY); cursorY += 14;
-  const body = entries.map(function(e){ const isPos = (e.type === 'Income' || e.type === 'Payment'); const isNeg = (e.type === 'Expense' || e.type === 'Charge'); const sign = isPos ? '+' : (isNeg ? '-' : ''); return [e.date, e.desc, e.category, e.type, sign + formatCurrency(e.amount, e.currency), e.mode, e.account, formatCurrency(e.running, e.currency)]; });
+  let _cumExp = 0; const body = entries.map(function(e){ const isPos = (e.type === 'Income' || e.type === 'Payment'); const isNeg = (e.type === 'Expense' || e.type === 'Charge'); const sign = isPos ? '+' : (isNeg ? '-' : ''); if (isNeg) _cumExp += Number(e.amount||0); const _mode = (e.mode && e.mode !== '—' && e.mode !== '-') ? e.mode : ''; const _acct = (e.account && e.account !== '—' && e.account !== '-') ? e.account : ''; return [e.date, e.desc, e.category, e.type, sign + formatCurrency(e.amount, e.currency), _mode, _acct, formatCurrency(_cumExp, e.currency)]; });
   let closing = entries.length ? entries[entries.length-1].running : opening;
-  doc.autoTable({ startY: cursorY, head: [['Date','Description','Category','Type','Amount','Mode','Account','Running Bal.']], body: body, styles: { fontSize: 8, cellPadding: 3, overflow: 'linebreak' }, headStyles: { fillColor: [30,41,59], textColor: 255, fontSize: 8 }, columnStyles: { 0: { cellWidth: 55 }, 4: { halign: 'right' }, 7: { halign: 'right' } } });
+  doc.autoTable({ startY: cursorY, head: [['Date','Description','Category','Type','Amount','Mode','Account','Total Expense']], body: body, styles: { fontSize: 8, cellPadding: 3, overflow: 'linebreak' }, headStyles: { fillColor: [30,41,59], textColor: 255, fontSize: 8 }, columnStyles: { 0: { cellWidth: 55 }, 4: { halign: 'right' }, 7: { halign: 'right' } } });
   let fy = cursorY + 20; try { fy = doc.lastAutoTable.finalY + 16; } catch(e2){}
   { var _incT=0,_expT=0; entries.forEach(function(e){ var _a=Number(e.amount||0); if(e.type==='Income'||e.type==='Payment')_incT+=_a; else if(e.type==='Expense'||e.type==='Charge')_expT+=_a; }); doc.setFontSize(10); doc.text('Income Added: ' + formatCurrency(_incT, currency) + '   |   Total Expense: ' + formatCurrency(_expT, currency), 40, fy); }
   doc.save('FinTrack_' + key + '_' + month + '.pdf');
