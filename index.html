@@ -2,7 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1E3A8A">
+  <style id="ftBootStyles">
+    html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    html.ft-booting #authContainer, html.ft-booting #appContainer { visibility: hidden !important; } html.ft-data-pending #appContainer { visibility: hidden !important; }
+    #ftLaunchSplash { position: fixed; inset: 0; z-index: 2147483646; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f8fafc; opacity: 1; transition: opacity .35s ease; pointer-events: none; font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    #ftLaunchSplash .ft-splash-track { margin: 20px auto 0; width: 120px; height: 3px; background: #e2e8f0; border-radius: 2px; overflow: hidden; }
+    #ftLaunchSplash .ft-splash-bar { height: 100%; width: 40%; background: #1E3A8A; border-radius: 2px; animation: ftSplashSweep 1s ease-in-out infinite; }
+    @keyframes ftSplashSweep { 0% { transform: translateX(-120%); } 100% { transform: translateX(320%); } }
+  </style>
+  <script>
+    /* Splash first, login second: the auth screen stays invisible until the splash finishes. */
+    document.documentElement.className += ' ft-booting';
+    setTimeout(function () {
+      document.documentElement.classList.remove('ft-booting');
+      var boot = document.getElementById('ftLaunchSplash');
+      if (boot) { boot.style.opacity = '0'; setTimeout(function () { if (boot.parentNode) boot.remove(); }, 400); }
+    }, 2600);
+  </script>
   <title>FinTrack - Financial Planning Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -206,7 +224,7 @@ button:active, .ft-qa:active { transform:scale(.96); }
     }
 /* Responsive tables: no letter-broken headings; controlled internal scrolling */
 .overflow-x-auto th { white-space: nowrap; } .overflow-x-auto td { overflow-wrap: anywhere; } /* ===== Multi-Theme System ===== */ body[data-theme="midnight"] { --ft-bg: #0F172A; --ft-surface: #1E293B; --ft-text: #F1F5F9; --ft-muted: #94A3B8; --ft-border: #334155; --ft-accent: #818CF8; --ft-card-grad: linear-gradient(135deg, #1E293B 0%, #0F172A 100%); } body[data-theme="emerald"] { --ft-bg: #ECFDF5; --ft-surface: #FFFFFF; --ft-text: #064E3B; --ft-muted: #047857; --ft-border: #A7F3D0; --ft-accent: #059669; --ft-card-grad: linear-gradient(135deg, #FFFFFF 0%, #ECFDF5 100%); } body[data-theme="rose"] { --ft-bg: #FFF1F2; --ft-surface: #FFFFFF; --ft-text: #881337; --ft-muted: #BE123C; --ft-border: #FECDD3; --ft-accent: #E11D48; --ft-card-grad: linear-gradient(135deg, #FFFFFF 0%, #FFF1F2 100%); } body[data-theme="ocean"] { --ft-bg: #F0F9FF; --ft-surface: #FFFFFF; --ft-text: #0C4A6E; --ft-muted: #0369A1; --ft-border: #BAE6FD; --ft-accent: #0284C7; --ft-card-grad: linear-gradient(135deg, #FFFFFF 0%, #F0F9FF 100%); } body[data-theme="royal"] { --ft-bg: #F5F3FF; --ft-surface: #FFFFFF; --ft-text: #4C1D95; --ft-muted: #6D28D9; --ft-border: #DDD6FE; --ft-accent: #7C3AED; --ft-card-grad: linear-gradient(135deg, #FFFFFF 0%, #F5F3FF 100%); } body[data-theme="midnight"] #sec-overview, body[data-theme="midnight"] #sec-expenses, body[data-theme="midnight"] #sec-friends, body[data-theme="midnight"] #sec-settings, body[data-theme="midnight"] #sec-help { background: var(--ft-bg) !important; } body[data-theme="midnight"] .bg-white { background: var(--ft-surface) !important; } body[data-theme="midnight"] .text-slate-800, body[data-theme="midnight"] .text-slate-700 { color: var(--ft-text) !important; } body[data-theme="midnight"] .text-slate-500, body[data-theme="midnight"] .text-slate-400 { color: var(--ft-muted) !important; } body[data-theme="midnight"] .border-slate-200 { border-color: var(--ft-border) !important; } body[data-theme="midnight"] .pastel-indigo, body[data-theme="midnight"] .pastel-rose, body[data-theme="midnight"] .pastel-emerald, body[data-theme="midnight"] .pastel-amber, body[data-theme="midnight"] .pastel-sky, body[data-theme="midnight"] .pastel-violet, body[data-theme="midnight"] .pastel-red, body[data-theme="midnight"] .pastel-slate { background: var(--ft-card-grad) !important; border-color: var(--ft-border) !important; } body[data-theme="emerald"] .pastel-indigo, body[data-theme="emerald"] .pastel-rose, body[data-theme="emerald"] .pastel-amber, body[data-theme="emerald"] .pastel-sky, body[data-theme="emerald"] .pastel-violet, body[data-theme="emerald"] .pastel-red, body[data-theme="emerald"] .pastel-slate { background: var(--ft-card-grad) !important; border-color: var(--ft-border) !important; } body[data-theme="rose"] .pastel-indigo, body[data-theme="rose"] .pastel-emerald, body[data-theme="rose"] .pastel-amber, body[data-theme="rose"] .pastel-sky, body[data-theme="rose"] .pastel-violet, body[data-theme="rose"] .pastel-slate { background: var(--ft-card-grad) !important; border-color: var(--ft-border) !important; } body[data-theme="ocean"] .pastel-indigo, body[data-theme="ocean"] .pastel-rose, body[data-theme="ocean"] .pastel-emerald, body[data-theme="ocean"] .pastel-amber, body[data-theme="ocean"] .pastel-violet, body[data-theme="ocean"] .pastel-red, body[data-theme="ocean"] .pastel-slate { background: var(--ft-card-grad) !important; border-color: var(--ft-border) !important; } body[data-theme="royal"] .pastel-indigo, body[data-theme="royal"] .pastel-rose, body[data-theme="royal"] .pastel-emerald, body[data-theme="royal"] .pastel-amber, body[data-theme="royal"] .pastel-sky, body[data-theme="royal"] .pastel-red, body[data-theme="royal"] .pastel-slate { background: var(--ft-card-grad) !important; border-color: var(--ft-border) !important; } body[data-theme="midnight"] .bg-slate-100 { background: var(--ft-bg) !important; } body[data-theme="midnight"] input, body[data-theme="midnight"] select, body[data-theme="midnight"] textarea { background: var(--ft-surface) !important; color: var(--ft-text) !important; border-color: var(--ft-border) !important; } body[data-theme="midnight"] .bg-slate-800\/90 { background: rgba(30,41,59,0.95) !important; } body[data-theme="midnight"] .text-amber-400 { color: #FBBF24 !important; } body[data-theme="midnight"] .text-white { color: var(--ft-text) !important; }
-.ft-scroll{max-height:360px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:thin;}.ft-scroll::-webkit-scrollbar{width:6px;}.ft-scroll::-webkit-scrollbar-thumb{background:rgba(100,116,139,.35);border-radius:999px;}.ft-scroll::-webkit-scrollbar-track{background:transparent;}#expensesViewMoreContainer,#debtsViewMoreContainer,#friendLedgerViewMoreContainer,#friendSplitsViewMoreContainer,#adminUsersViewMoreContainer,#recentIncomeViewMore{display:none !important;}</style>
+.ft-scroll{max-height:360px;overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;}.ft-scroll::-webkit-scrollbar{width:6px;}.ft-scroll::-webkit-scrollbar-thumb{background:rgba(100,116,139,.35);border-radius:999px;}.ft-scroll::-webkit-scrollbar-track{background:transparent;}#expensesViewMoreContainer,#debtsViewMoreContainer,#friendLedgerViewMoreContainer,#friendSplitsViewMoreContainer,#adminUsersViewMoreContainer,#recentIncomeViewMore{display:none !important;}</style>
 <style id="ft-desktop-fill-fix">
 /* Desktop-only width fix: summary grids fill their container; pairs split 50/50.
    Mobile (<1024px) is untouched. Reversible — remove this block to revert. */
@@ -615,6 +633,13 @@ body.ft-dark main .ft-account-group+.ft-account-group{border-top-color:#2C313A;}
 </style>
 </head>
 <body class="bg-slate-100 font-sans text-slate-800 min-h-screen flex flex-col">
+  <div id="ftLaunchSplash" aria-hidden="true">
+    <div style="text-align:center;padding:24px;">
+      <img src="https://base44.app/api/apps/6ae79d668414d2b0426f2d1d/files/mp/public/6ae79d668414d2b0426f2d1d/83db639bc_fintrack-logo.jpg" alt="FinTrack" style="width:88px;height:88px;object-fit:contain;border-radius:20px;margin:0 auto 20px;display:block;box-shadow:0 8px 24px rgba(15,23,42,.12);">
+      <div style="font-size:22px;font-weight:800;letter-spacing:.3px;color:#1e293b;">Welcome to FinTrack</div>
+      <div class="ft-splash-track"><div class="ft-splash-bar"></div></div>
+    </div>
+  </div>
 
   <!-- AUTH SCREENS -->
   <div id="authContainer" class="fixed inset-0 bg-slate-900/95 backdrop-blur-md flex items-center justify-center z-50 p-4 overflow-y-auto">
@@ -831,7 +856,7 @@ body.ft-dark main .ft-account-group+.ft-account-group{border-top-color:#2C313A;}
 <section id="sec-expenses" class="tab-content hidden space-y-6"><div class="hidden"><input id="cashbookMonthSelect" type="hidden"><select id="cashbookCurrencySelect"></select><span id="cashbookPeriod"></span><div id="cashbookContainer"></div></div><div class="pastel-rose p-5 rounded-2xl border border-rose-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-rose-200 pb-4"><div><h3 class="font-bold text-slate-800 text-base">Monthly Expenses</h3><p class="text-xs text-slate-500">Real-time tracker. Logs update instantly upon saving.</p></div><div class="flex items-center space-x-3 flex-wrap gap-y-2"><label class="text-xs font-bold text-slate-600 uppercase">Month:</label><div class="inline-flex items-center gap-0.5 bg-white/70 border border-rose-200 rounded-lg px-1 py-0.5"><button onclick="navMonthPrev('expenseMonthSelect','renderExpenses()')" class="text-slate-500 hover:text-indigo-600 px-2 py-1 rounded hover:bg-indigo-50 transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="font-bold text-xs text-slate-700 min-w-[100px] text-center select-none" id="navLabel_expenseMonthSelect"></span><button onclick="navMonthNext('expenseMonthSelect','renderExpenses()')" class="text-slate-500 hover:text-indigo-600 px-2 py-1 rounded hover:bg-indigo-50 transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button><button onclick="ftOpenMonthPicker('expenseMonthSelect','renderExpenses()')" class="text-slate-500 hover:text-indigo-600 px-2 py-1 rounded hover:bg-indigo-50 transition" title="Jump to month"><i class="fa-solid fa-calendar-day text-[10px]"></i></button></div><input type="hidden" id="expenseMonthSelect" value=""><button onclick="openNewExpenseModal()" class="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-lg shadow">+ Add Expense</button></div></div><div id="expenseSummaryContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div><div id="ftAnalyticsBlock" class="pt-2"></div><div class="overflow-x-auto border rounded-lg border-rose-200"><table class="w-full text-left text-xs"><thead><tr class="bg-rose-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Date</th><th class="p-3 text-center">Paid By</th><th class="p-3 text-center">Category</th><th class="p-3">Description</th><th class="p-3 text-center">Account</th><th class="p-3 text-right">Amount</th><th class="p-3 text-center">Actions</th></tr></thead><tbody id="expensesTable" class="divide-y divide-rose-100 font-medium text-slate-700"></tbody></table></div><div id="expensesViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('expenses')" class="px-4 py-2 bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold text-xs rounded-lg transition">View More</button></div><div class="mt-6 border-t pt-4"><h4 class="font-bold text-slate-800 text-sm mb-2"><i class="fa-solid fa-clock-rotate-left mr-1 text-slate-400"></i> Settlement Transfer Logs (this month)</h4><div class="overflow-x-auto"><table class="w-full text-left text-xs bg-slate-50 rounded-lg"><tbody id="settlementsTable" class="divide-y divide-slate-200 text-slate-600"></tbody></table></div></div></div></section>
         <section id="sec-friends" class="tab-content hidden space-y-6"><div id="findUserBlock" class="pastel-sky p-5 rounded-2xl border border-sky-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-sky-200 pb-3"><div><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-magnifying-glass text-sky-600 mr-2"></i> Find Registered FinTrack User</h3><p class="text-xs text-slate-500">Search a registered user by their mobile number. This is not a public directory.</p></div></div><div class="flex flex-wrap items-end gap-2"><div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Country Code</label><select id="searchCountryCode" class="px-2 py-2 border rounded-lg font-bold text-sm"><option value="+91">+91</option><option value="+966">+966</option><option value="+971">+971</option><option value="+973">+973</option><option value="+968">+968</option><option value="+974">+974</option><option value="+965">+965</option><option value="+998">+998</option><option value="+1">+1</option><option value="+44">+44</option><option value="+61">+61</option></select></div><div><label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Mobile Number</label><input type="tel" id="searchMobile" class="px-3 py-2 border rounded-lg font-bold text-sm" placeholder="Mobile number"></div><button onclick="searchUserByMobile()" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-lg shadow">Search</button></div><div id="searchResult" class="text-xs text-slate-500"></div></div><div id="receivablePayableBlock" class="pastel-emerald p-5 rounded-2xl border border-emerald-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-200 pb-3"><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-scale-balanced text-emerald-600 mr-2"></i> Receivable & Payable Summary</h3></div><div id="receivablePayableContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div></div><div id="friendsListBlock" class="pastel-emerald p-5 rounded-2xl border border-emerald-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-200 pb-3"><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-user-group text-emerald-600 mr-2"></i> Friends List</h3><button onclick="openAddFriendFromOverview()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg shadow">+ Add Friend</button></div><div id="friendsListContainer" class="space-y-2"></div></div><div id="friendSplitsBlock" class="pastel-emerald p-5 rounded-2xl border border-emerald-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-200 pb-3"><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-receipt text-amber-600 mr-2"></i> Friends Split Transactions</h3><div class="flex items-center space-x-3 flex-wrap gap-y-2"><label class="text-xs font-bold text-slate-600 uppercase">Month:</label><div class="inline-flex items-center gap-0.5 bg-white/70 border border-amber-200 rounded-lg px-1 py-0.5"><button onclick="navMonthPrev('friendSplitMonthSelect','renderFriendsSplit()')" class="text-slate-500 hover:text-amber-600 px-2 py-1 rounded hover:bg-amber-50 transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="font-bold text-xs text-slate-700 min-w-[100px] text-center select-none" id="navLabel_friendSplitMonthSelect"></span><button onclick="navMonthNext('friendSplitMonthSelect','renderFriendsSplit()')" class="text-slate-500 hover:text-amber-600 px-2 py-1 rounded hover:bg-amber-50 transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button><button onclick="ftOpenMonthPicker('friendSplitMonthSelect','renderFriendsSplit()')" class="text-slate-500 hover:text-amber-600 px-2 py-1 rounded hover:bg-amber-50 transition" title="Jump to month"><i class="fa-solid fa-calendar-day text-[10px]"></i></button></div><input type="hidden" id="friendSplitMonthSelect" value=""></div><button onclick="openFriendSplitModal()" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-lg shadow">+ Add Split Expense</button></div><div class="overflow-x-auto border rounded-lg border-emerald-200"><table class="w-full text-left text-xs"><thead><tr class="bg-emerald-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Date</th><th class="p-3">Description</th><th class="p-3 text-center">Paid By</th><th class="p-3 text-right">Amount</th><th class="p-3 text-center">Participants</th><th class="p-3 text-center">Share / Person</th><th class="p-3 text-center">Actions</th></tr></thead><tbody id="friendSplitsTable" class="divide-y divide-emerald-100 font-medium text-slate-700"></tbody></table></div><div id="friendSplitsViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('friendSplits')" class="px-4 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 font-bold text-xs rounded-lg transition">View More</button></div></div><div id="tripsBlock" class="pastel-sky p-5 rounded-2xl border border-sky-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-sky-200 pb-3"><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-plane text-sky-600 mr-2"></i> Group Trip Expenses</h3><button onclick="ftOpenTripModal()" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-lg shadow">+ Add Trip</button></div><div id="tripsContainer" class="space-y-4"></div></div></section>
         <section id="sec-settlements" class="tab-content hidden space-y-6"><div class="pastel-violet p-5 rounded-2xl border border-violet-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-violet-200 pb-4"><div class="min-w-0"><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-user-group text-violet-600 mr-2"></i> Friends Split Settlement</h3><p class="text-xs text-slate-500">Settlements related to Friends Split transactions only. Running balance with each friend — automatically carries forward across months. Outstanding balances are calculated automatically from Friends Split entries plus any recorded settlements.</p></div><button onclick="openFriendSettlementModal()" class="px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs rounded-lg shadow">+ Record Friend Settlement</button></div><div class="grid grid-cols-1 md:grid-cols-3 gap-4"><div class="bg-red-50 border border-red-200 p-4 rounded-xl"><p class="text-[10px] font-bold text-red-600 uppercase">Total You Need To Pay</p><h4 class="text-base font-black money-expense break-words fin-value fin-card-val" id="fsTotalOwe">0</h4></div><div class="bg-emerald-50 border border-emerald-200 p-4 rounded-xl"><p class="text-[10px] font-bold text-emerald-700 uppercase">Total Friends Owe You</p><h4 class="text-base font-black money-income break-words fin-value fin-card-val" id="fsTotalOwed">0</h4></div><div class="bg-white/70 border border-slate-200 p-4 rounded-xl"><p class="text-[10px] font-bold text-slate-600 uppercase">Net Settlement Position</p><h4 class="text-base font-black money-neutral break-words fin-value fin-card-val" id="fsNetPosition">0</h4></div></div><div class="overflow-x-auto border rounded-lg border-violet-200"><table class="w-full text-left text-xs"><thead><tr class="bg-violet-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Friend</th><th class="p-3">Status</th><th class="p-3 text-right">Outstanding</th><th class="p-3 text-center">Actions</th></tr></thead><tbody id="friendLedgerSummaryTable" class="divide-y divide-violet-100 font-medium text-slate-700"></tbody></table></div><h4 class="font-bold text-slate-800 text-sm border-t border-violet-200 pt-4"><i class="fa-solid fa-clock-rotate-left mr-1 text-slate-400"></i> Friend Settlement History</h4><div class="overflow-x-auto border rounded-lg border-violet-200"><table class="w-full text-left text-xs"><thead><tr class="bg-violet-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Date</th><th class="p-3">Friend</th><th class="p-3">Direction</th><th class="p-3 text-right">Amount</th><th class="p-3">Account</th><th class="p-3">Notes</th><th class="p-3 text-right">Prev. Balance</th><th class="p-3 text-right">Balance After</th><th class="p-3 text-center">Delete</th></tr></thead><tbody id="friendLedgerHistoryTable" class="divide-y divide-violet-100 font-medium text-slate-700"></tbody></table></div><div id="friendLedgerViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('friendLedger')" class="px-4 py-2 bg-violet-100 hover:bg-violet-200 text-violet-700 font-bold text-xs rounded-lg transition">View More</button></div></div></section>
-        <section id="sec-household" class="tab-content hidden space-y-6 module-section-household"><div class="pastel-teal p-5 rounded-2xl border border-teal-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-teal-200 pb-4"><div class="min-w-0"><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-house-chimney-window text-teal-600 mr-2"></i> Household</h3><div id="hhMembersList" class="flex flex-wrap gap-2 mt-1.5"></div><p class="text-xs text-slate-500 mt-1">Track shared household expenses (rent, utilities, groceries, etc.) among housemates or family members. Automatically calculates who owes whom and lets you record settlements.</p></div><div class="flex flex-wrap items-center gap-2"><div class="inline-flex items-center gap-0.5 bg-white/70 border border-teal-200 rounded-lg px-1 py-0.5"><button onclick="navMonthPrev('householdMonthSelect','renderHouseholdSettlement()')" class="text-slate-500 hover:text-teal-600 px-2 py-1 rounded hover:bg-teal-50 transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="font-bold text-xs text-slate-700 min-w-[100px] text-center select-none" id="navLabel_householdMonthSelect"></span><button onclick="navMonthNext('householdMonthSelect','renderHouseholdSettlement()')" class="text-slate-500 hover:text-teal-600 px-2 py-1 rounded hover:bg-teal-50 transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button><button onclick="ftOpenMonthPicker('householdMonthSelect','renderHouseholdSettlement()')" class="text-slate-500 hover:text-teal-600 px-2 py-1 rounded hover:bg-teal-50 transition" title="Jump to month"><i class="fa-solid fa-calendar-day text-[10px]"></i></button></div><input type="hidden" id="householdMonthSelect" value=""><div class="relative"><button onclick="window.ftToggleHhMenu(event)" class="px-2.5 py-2 bg-white/80 border border-teal-200 hover:bg-teal-50 text-slate-600 rounded-lg shadow" title="Household options"><i class="fa-solid fa-ellipsis-vertical text-xs"></i></button><div id="hhMenuPanel" class="hidden absolute right-0 mt-1 w-56 bg-white border border-slate-200 rounded-xl shadow-xl p-1 z-50 text-left"><button onclick="window.ftHhMenuAction('expense')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-teal-50"><i class="fa-solid fa-receipt w-4 text-teal-600"></i> Add household expense</button><button onclick="window.ftHhMenuAction('settlement')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-teal-50"><i class="fa-solid fa-handshake w-4 text-violet-600"></i> Record settlement</button><button onclick="window.ftHhMenuAction('member')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-teal-50"><i class="fa-solid fa-user-plus w-4 text-teal-600"></i> Add member</button><button onclick="window.ftHhRemoveMember()" class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-teal-50"><i class="fa-solid fa-user-minus w-4 text-red-500"></i> Remove member</button><button onclick="window.ftHhMenuAction('pdf')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-slate-700 hover:bg-teal-50"><i class="fa-solid fa-file-pdf w-4 text-slate-600"></i> Download PDF report</button><div class="h-px bg-slate-100 my-1"></div><button onclick="window.ftHhMenuAction('leave')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-red-600 hover:bg-red-50"><i class="fa-solid fa-right-from-bracket w-4"></i> Exit household</button><button onclick="window.ftHhMenuAction('delete')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-bold text-red-600 hover:bg-red-50"><i class="fa-solid fa-trash w-4"></i> Delete household</button></div></div><button onclick="openHouseholdExpenseModal()" class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-lg shadow">+ Add Household Expense</button></div></div><div id="hhBalanceCards" class="space-y-2"></div><div id="hhPaymentPlan" class="space-y-3"></div><h4 class="font-bold text-slate-800 text-sm border-t border-teal-200 pt-4"><i class="fa-solid fa-receipt mr-1 text-slate-400"></i> Household Expenses</h4><div class="overflow-x-auto border rounded-lg border-teal-200"><table class="w-full text-left text-xs"><thead><tr class="bg-teal-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Date</th><th class="p-3">Description</th><th class="p-3">Category</th><th class="p-3">Paid By</th><th class="p-3 text-right">Amount</th><th class="p-3">Split Among</th><th class="p-3 text-center">Actions</th></tr></thead><tbody id="hhExpensesTable" class="divide-y divide-teal-100 font-medium text-slate-700"></tbody></table></div><div id="hhExpensesViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('hhExpenses')" class="px-4 py-2 bg-teal-100 hover:bg-teal-200 text-teal-700 font-bold text-xs rounded-lg transition">View More</button></div><h4 class="font-bold text-slate-800 text-sm border-t border-teal-200 pt-4"><i class="fa-solid fa-clock-rotate-left mr-1 text-slate-400"></i> Settlement History</h4><div class="overflow-x-auto border rounded-lg border-teal-200"><table class="w-full text-left text-xs"><thead><tr class="bg-teal-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Date</th><th class="p-3">From</th><th class="p-3">To</th><th class="p-3 text-right">Amount</th><th class="p-3">Account</th><th class="p-3">Notes</th><th class="p-3 text-center">Delete</th></tr></thead><tbody id="hhSettlementsTable" class="divide-y divide-teal-100 font-medium text-slate-700"></tbody></table></div><div id="hhSettlementsViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('hhSettlements')" class="px-4 py-2 bg-teal-100 hover:bg-teal-200 text-teal-700 font-bold text-xs rounded-lg transition">View More</button></div></div></section><section id="sec-liabilities" class="tab-content hidden space-y-6 module-section-liabilities"><div class="pastel-red p-5 rounded-2xl border border-red-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-red-200 pb-4"><div><h3 class="font-bold text-slate-800 text-base">Liabilities & Debt Management</h3><p class="text-xs text-slate-500">Track loan payments with exact dates, logs, and closing status.</p></div><div class="flex flex-wrap items-center gap-2"><div class="inline-flex items-center gap-0.5 bg-white/70 border border-red-200 rounded-lg px-1 py-0.5"><button onclick="navMonthPrev('debtMonthSelect','renderDebts()')" class="text-slate-500 hover:text-red-600 px-2 py-1 rounded hover:bg-red-50 transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="font-bold text-xs text-slate-700 min-w-[100px] text-center select-none" id="navLabel_debtMonthSelect"></span><button onclick="navMonthNext('debtMonthSelect','renderDebts()')" class="text-slate-500 hover:text-red-600 px-2 py-1 rounded hover:bg-red-50 transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button><button onclick="ftOpenMonthPicker('debtMonthSelect','renderDebts()')" class="text-slate-500 hover:text-red-600 px-2 py-1 rounded hover:bg-red-50 transition" title="Jump to month"><i class="fa-solid fa-calendar-day text-[10px]"></i></button></div><input type="hidden" id="debtMonthSelect" value=""><button onclick="openForm('modalDebt', 'debtForm')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-lg shadow">+ Add New Debt</button></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="debtsContainer"></div><div id="debtsViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('debts')" class="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-bold text-xs rounded-lg transition">View More</button></div></div></section>
+        <section id="sec-household" class="tab-content hidden space-y-6 module-section-household"><div class="pastel-teal p-5 rounded-2xl border border-teal-200 shadow-sm space-y-4"><div class="relative flex flex-wrap items-start justify-between gap-4 border-b border-teal-200 pb-4"><div class="min-w-0 pr-12"><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-house-chimney-window text-teal-600 mr-2"></i> Household</h3><div id="hhMembersList" class="flex flex-wrap gap-2 mt-1.5"></div><p class="text-xs text-slate-500 mt-1">Track shared household expenses (rent, utilities, groceries, etc.) among housemates or family members. Automatically calculates who owes whom and lets you record settlements.</p></div><div class="absolute right-0 top-0 z-40"><button onclick="window.ftToggleHhMenu(event)" class="px-2.5 py-2 bg-white border border-[#C7D7F5] hover:bg-[#F5F8FF] text-[#1E3A8A] rounded-lg shadow" title="Household options"><i class="fa-solid fa-ellipsis-vertical text-xs"></i></button><div id="hhMenuPanel" class="hidden absolute right-0 mt-1 w-56 bg-white border border-[#C7D7F5] rounded-xl shadow-xl p-1 z-50 text-left"><button onclick="window.ftHhMenuAction('expense')" class="w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg text-xs font-bold text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white active:bg-[#1E3A8A] active:text-white transition"><i class="fa-solid fa-receipt w-4"></i> Add household expense</button><button onclick="window.ftHhMenuAction('settlement')" class="w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg text-xs font-bold text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white active:bg-[#1E3A8A] active:text-white transition"><i class="fa-solid fa-handshake w-4"></i> Record settlement</button><button onclick="window.ftHhMenuAction('member')" class="w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg text-xs font-bold text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white active:bg-[#1E3A8A] active:text-white transition"><i class="fa-solid fa-user-plus w-4"></i> Add member</button><button onclick="window.ftHhRemoveMember()" class="w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg text-xs font-bold text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white active:bg-[#1E3A8A] active:text-white transition"><i class="fa-solid fa-user-minus w-4"></i> Remove member</button><button onclick="window.ftHhMenuAction('pdf')" class="w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg text-xs font-bold text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white active:bg-[#1E3A8A] active:text-white transition"><i class="fa-solid fa-file-pdf w-4"></i> Download PDF report</button><div class="h-px bg-[#E3EBF9] my-1"></div><button onclick="window.ftHhMenuAction('leave')" class="w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg text-xs font-bold text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white active:bg-[#1E3A8A] active:text-white transition"><i class="fa-solid fa-right-from-bracket w-4"></i> Exit household</button><button onclick="window.ftHhMenuAction('delete')" class="w-full flex items-center gap-2 text-left px-3 py-2 rounded-lg text-xs font-bold text-[#1E3A8A] hover:bg-[#1E3A8A] hover:text-white active:bg-[#1E3A8A] active:text-white transition"><i class="fa-solid fa-trash w-4"></i> Delete household</button></div></div></div><div class="flex flex-wrap items-center gap-2"><div class="inline-flex items-center gap-0.5 bg-white/70 border border-teal-200 rounded-lg px-1 py-0.5"><button onclick="navMonthPrev('householdMonthSelect','renderHouseholdSettlement()')" class="text-slate-500 hover:text-teal-600 px-2 py-1 rounded hover:bg-teal-50 transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="font-bold text-xs text-slate-700 min-w-[100px] text-center select-none" id="navLabel_householdMonthSelect"></span><button onclick="navMonthNext('householdMonthSelect','renderHouseholdSettlement()')" class="text-slate-500 hover:text-teal-600 px-2 py-1 rounded hover:bg-teal-50 transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button><button onclick="ftOpenMonthPicker('householdMonthSelect','renderHouseholdSettlement()')" class="text-slate-500 hover:text-teal-600 px-2 py-1 rounded hover:bg-teal-50 transition" title="Jump to month"><i class="fa-solid fa-calendar-day text-[10px]"></i></button></div><input type="hidden" id="householdMonthSelect" value=""><button onclick="openHouseholdExpenseModal()" class="px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-lg shadow">+ Add Household Expense</button></div><div id="hhBalanceCards" class="space-y-2"></div><div id="hhPaymentPlan" class="space-y-3"></div><h4 class="font-bold text-slate-800 text-sm border-t border-teal-200 pt-4"><i class="fa-solid fa-receipt mr-1 text-slate-400"></i> Household Expenses</h4><div class="overflow-x-auto border rounded-lg border-teal-200"><table class="w-full text-left text-xs"><thead><tr class="bg-teal-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Date</th><th class="p-3">Description</th><th class="p-3">Category</th><th class="p-3">Paid By</th><th class="p-3 text-right">Amount</th><th class="p-3">Split Among</th><th class="p-3 text-center">Actions</th></tr></thead><tbody id="hhExpensesTable" class="divide-y divide-teal-100 font-medium text-slate-700"></tbody></table></div><div id="hhExpensesViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('hhExpenses')" class="px-4 py-2 bg-teal-100 hover:bg-teal-200 text-teal-700 font-bold text-xs rounded-lg transition">View More</button></div><h4 class="font-bold text-slate-800 text-sm border-t border-teal-200 pt-4"><i class="fa-solid fa-clock-rotate-left mr-1 text-slate-400"></i> Settlement History</h4><div class="overflow-x-auto border rounded-lg border-teal-200"><table class="w-full text-left text-xs"><thead><tr class="bg-teal-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Date</th><th class="p-3">From</th><th class="p-3">To</th><th class="p-3 text-right">Amount</th><th class="p-3">Account</th><th class="p-3">Notes</th><th class="p-3 text-center">Delete</th></tr></thead><tbody id="hhSettlementsTable" class="divide-y divide-teal-100 font-medium text-slate-700"></tbody></table></div><div id="hhSettlementsViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('hhSettlements')" class="px-4 py-2 bg-teal-100 hover:bg-teal-200 text-teal-700 font-bold text-xs rounded-lg transition">View More</button></div></div></section><section id="sec-liabilities" class="tab-content hidden space-y-6 module-section-liabilities"><div class="pastel-red p-5 rounded-2xl border border-red-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-red-200 pb-4"><div><h3 class="font-bold text-slate-800 text-base">Liabilities & Debt Management</h3><p class="text-xs text-slate-500">Track loan payments with exact dates, logs, and closing status.</p></div><div class="flex flex-wrap items-center gap-2"><div class="inline-flex items-center gap-0.5 bg-white/70 border border-red-200 rounded-lg px-1 py-0.5"><button onclick="navMonthPrev('debtMonthSelect','renderDebts()')" class="text-slate-500 hover:text-red-600 px-2 py-1 rounded hover:bg-red-50 transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="font-bold text-xs text-slate-700 min-w-[100px] text-center select-none" id="navLabel_debtMonthSelect"></span><button onclick="navMonthNext('debtMonthSelect','renderDebts()')" class="text-slate-500 hover:text-red-600 px-2 py-1 rounded hover:bg-red-50 transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button><button onclick="ftOpenMonthPicker('debtMonthSelect','renderDebts()')" class="text-slate-500 hover:text-red-600 px-2 py-1 rounded hover:bg-red-50 transition" title="Jump to month"><i class="fa-solid fa-calendar-day text-[10px]"></i></button></div><input type="hidden" id="debtMonthSelect" value=""><button onclick="openForm('modalDebt', 'debtForm')" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs rounded-lg shadow">+ Add New Debt</button></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="debtsContainer"></div><div id="debtsViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('debts')" class="px-4 py-2 bg-red-100 hover:bg-red-200 text-red-700 font-bold text-xs rounded-lg transition">View More</button></div></div></section>
         <section id="sec-gold-sip" class="tab-content hidden space-y-6 module-section-goldsip"><div class="gold-card p-5 rounded-2xl border shadow-sm space-y-5"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-amber-200 pb-4"><div><h3 class="font-black text-amber-900 text-base flex items-center"><i class="fa-solid fa-coins text-amber-500 mr-2"></i> Gold Purchase & Dual Conversion Analysis</h3><p class="text-xs text-amber-800 mt-1">Compare physical gold value vs purchase-day conversion rate & live today conversion rate.</p></div><div class="flex flex-wrap items-center gap-2"><div class="inline-flex items-center gap-0.5 bg-white/70 border border-amber-200 rounded-lg px-1 py-0.5"><button onclick="navMonthPrev('goldSipMonthSelect','renderGoldAndSip()')" class="text-slate-500 hover:text-amber-600 px-2 py-1 rounded hover:bg-amber-50 transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="font-bold text-xs text-slate-700 min-w-[100px] text-center select-none" id="navLabel_goldSipMonthSelect"></span><button onclick="navMonthNext('goldSipMonthSelect','renderGoldAndSip()')" class="text-slate-500 hover:text-amber-600 px-2 py-1 rounded hover:bg-amber-50 transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button><button onclick="ftOpenMonthPicker('goldSipMonthSelect','renderGoldAndSip()')" class="text-slate-500 hover:text-amber-600 px-2 py-1 rounded hover:bg-amber-50 transition" title="Jump to month"><i class="fa-solid fa-calendar-day text-[10px]"></i></button></div><input type="hidden" id="goldSipMonthSelect" value=""><button onclick="openForm('modalGold', 'goldForm')" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-lg shadow">+ Add Gold Purchase</button></div></div><div class="bg-white/90 p-4 rounded-xl border border-amber-200 shadow-xs flex flex-wrap items-center justify-between gap-4"><div class="flex items-center space-x-2"><span class="text-xs font-bold text-amber-900 uppercase"><i class="fa-solid fa-tags text-amber-600 mr-1"></i> Common Today's Rate Update:</span></div><div class="flex flex-wrap items-center gap-2"><div class="inline-flex rounded-lg border border-amber-300 bg-amber-50 p-1"><button type="button" onclick="setCommonGoldPurity('24K')" id="commonPurity24K" class="px-3 py-1 text-xs font-bold rounded-md bg-amber-500 text-white transition">24K</button><button type="button" onclick="setCommonGoldPurity('22K')" id="commonPurity22K" class="px-3 py-1 text-xs font-bold rounded-md text-amber-900 hover:bg-amber-100 transition">22K</button><button type="button" onclick="setCommonGoldPurity('18K')" id="commonPurity18K" class="px-3 py-1 text-xs font-bold rounded-md text-amber-900 hover:bg-amber-100 transition">18K</button></div><div class="flex items-center space-x-1"><input type="number" id="commonTodayRateInput" placeholder="Enter rate..." class="w-28 px-2 py-1.5 bg-white border border-amber-300 rounded-lg text-xs font-bold text-amber-900 outline-none focus:border-amber-500"></div><button type="button" onclick="applyCommonGoldRate()" class="px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-lg shadow transition">Update All <span id="currentCommonPurityLabel">(24K)</span></button></div></div><div class="grid grid-cols-2 md:grid-cols-5 gap-3 bg-white/80 p-4 rounded-xl border border-amber-200/60 shadow-xs"><div><p class="text-[10px] font-bold text-slate-500 uppercase flex items-center gap-1" id="goldSummarySarLabel">Total <select id="goldInvestedCurrencySelect" onchange="changeGoldInvestedCurrency()" class="bg-transparent border border-amber-300 rounded px-1 py-0.5 text-[10px] font-bold text-slate-700 uppercase outline-none focus:border-amber-500 cursor-pointer"></select> Invested</p><h4 class="text-base md:text-lg font-black text-slate-800" id="goldSummarySar">0 SAR</h4></div><div><p class="text-[10px] font-bold text-amber-700 uppercase">Purchase Day Conv. Total</p><h4 class="text-base md:text-lg font-black text-amber-800" id="goldSummaryPurchaseInr">0</h4><p class="text-[9px] text-amber-600/80">Based on purchase day rates</p></div><div><p class="text-[10px] font-bold text-indigo-700 uppercase">Converted Today (Live)</p><h4 class="text-base md:text-lg font-black text-indigo-800" id="goldSummaryTodayInr">0</h4><p class="text-[9px] text-indigo-600/80">If SAR remitted today</p></div><div><p class="text-[10px] font-bold text-amber-600 uppercase">Today's Gold Market Value</p><h4 class="text-base md:text-lg font-black text-amber-600" id="goldSummaryValue">0</h4><p class="text-[9px] text-amber-600/80">Physical gold current value</p></div><div class="col-span-2 md:col-span-1 border-t md:border-t-0 md:border-l pl-0 md:pl-3 border-amber-300 pt-2 md:pt-0"><p class="text-[10px] font-bold text-slate-800 uppercase">Net Profit vs Purchase</p><h4 class="text-base md:text-lg font-black" id="goldSummaryProfit">0</h4><p class="text-[9px] text-slate-500" id="goldSummaryProfitSub">vs Today Remit: 0</p></div></div><div class="overflow-x-auto bg-white rounded-lg border border-amber-200"><table class="w-full text-left text-xs"><thead><tr class="bg-amber-100/60 text-amber-950 font-bold border-b border-amber-200 uppercase"><th class="p-2.5">Date</th><th class="p-2.5 text-center">Grams</th><th class="p-2.5 text-right">Bought</th><th class="p-2.5 text-right">Day Rate</th><th class="p-2.5 text-right bg-amber-50/50">Purchase Day Conv.</th><th class="p-2.5 text-right bg-indigo-50/30">Converted Today</th><th class="p-2.5 text-right">Today Rate</th><th class="p-2.5 text-right bg-amber-100/40">Today Gold Value</th><th class="p-2.5 text-right">Profit vs Purchase</th><th class="p-2.5 text-center">Actions</th></tr></thead><tbody id="goldTable" class="divide-y divide-amber-100 font-medium text-slate-700"></tbody></table></div><div id="goldViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('gold')" class="px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-700 font-bold text-xs rounded-lg transition">View More</button></div></div><div class="pastel-indigo p-5 rounded-2xl border border-indigo-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-indigo-200 pb-4"><h3 class="font-bold text-slate-800 text-base">SIP & Money Investments</h3><button onclick="openForm('modalSip', 'sipForm')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-lg shadow">+ Add SIP</button></div><div class="overflow-x-auto"><table class="w-full text-left text-xs"><thead><tr class="bg-indigo-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Date</th><th class="p-3">SIP Name</th><th class="p-3">Category</th><th class="p-3 text-right">Monthly</th><th class="p-3 text-right">Current Value</th><th class="p-3 text-center">Actions</th></tr></thead><tbody id="sipTable" class="divide-y divide-indigo-100 font-medium text-slate-700"></tbody></table></div><div id="sipViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('sips')" class="px-4 py-2 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-bold text-xs rounded-lg transition">View More</button></div></div></section>
         <section id="sec-transfers" class="tab-content hidden space-y-6 module-section-transfers"><div class="pastel-sky p-5 rounded-2xl border border-sky-200 shadow-sm space-y-4"><div class="flex flex-wrap items-center justify-between gap-4 border-b border-sky-200 pb-4"><div><h3 class="font-bold text-slate-800 text-base">Bank & Cash Transfers</h3><p class="text-xs text-slate-500">Record transfers between your accounts or cash in hand balances.</p></div><div class="flex items-center space-x-3 flex-wrap gap-y-2"><label class="text-xs font-bold text-slate-600 uppercase">Month:</label><div class="inline-flex items-center gap-0.5 bg-white/70 border border-sky-200 rounded-lg px-1 py-0.5"><button onclick="navMonthPrev('transferMonthSelect','renderTransfers()')" class="text-slate-500 hover:text-indigo-600 px-2 py-1 rounded hover:bg-indigo-50 transition"><i class="fa-solid fa-chevron-left text-[10px]"></i></button><span class="font-bold text-xs text-slate-700 min-w-[100px] text-center select-none" id="navLabel_transferMonthSelect"></span><button onclick="navMonthNext('transferMonthSelect','renderTransfers()')" class="text-slate-500 hover:text-indigo-600 px-2 py-1 rounded hover:bg-indigo-50 transition"><i class="fa-solid fa-chevron-right text-[10px]"></i></button><button onclick="ftOpenMonthPicker('transferMonthSelect','renderTransfers()')" class="text-slate-500 hover:text-indigo-600 px-2 py-1 rounded hover:bg-indigo-50 transition" title="Jump to month"><i class="fa-solid fa-calendar-day text-[10px]"></i></button></div><input type="hidden" id="transferMonthSelect" value=""><button onclick="openTransferModal()" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-lg shadow">+ New Transfer</button></div></div><div class="overflow-x-auto border rounded-lg border-sky-200"><table class="w-full text-left text-xs"><thead><tr class="bg-sky-50 text-slate-600 uppercase font-bold border-b"><th class="p-3">Date</th><th class="p-3">From Account</th><th class="p-3">To Account</th><th class="p-3 text-right">Amount</th><th class="p-3">Notes</th><th class="p-3 text-center">Actions</th></tr></thead><tbody id="transfersTable" class="divide-y divide-sky-100 font-medium text-slate-700"></tbody></table></div><div id="transfersViewMoreContainer" class="hidden text-center py-2"><button onclick="showAllEntries('transfers')" class="px-4 py-2 bg-sky-100 hover:bg-sky-200 text-sky-700 font-bold text-xs rounded-lg transition">View More</button></div></div></section>
         <section id="sec-profile" class="tab-content hidden space-y-6"><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4"><div class="border-b border-slate-200 pb-3"><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-user-circle text-indigo-600 mr-2"></i> Profile</h3><p class="text-xs text-slate-500 mt-1">Your account information and mobile number settings.</p></div><div id="profileInfoContainer" class="space-y-3 text-sm"></div><div class="pt-3 border-t border-slate-200"><button onclick="openEditMobileModal()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-lg shadow"><i class="fa-solid fa-pen mr-1"></i> Update Profile</button></div></div><div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4"><div class="border-b border-slate-200 pb-3"><h3 class="font-bold text-slate-800 text-base flex items-center"><i class="fa-solid fa-bell text-amber-500 mr-2"></i> Notifications</h3><p class="text-xs text-slate-500 mt-1">Friend requests, new splits and payment reminders — in real time.</p></div><div id="profileNotificationsList" class="space-y-3"></div></div></section>
@@ -1245,7 +1270,7 @@ function ftClearFinpinInputs(attr) {
   document.head.appendChild(st);
 })();
 window.ftShowWelcomeSplash = function () {
-  var existing = document.getElementById('ftWelcomeSplash'); if (existing) existing.remove();
+  var existing = document.getElementById('ftWelcomeSplash'); if (existing) existing.remove(); if (window._ftSplashTimerId) { clearInterval(window._ftSplashTimerId); window._ftSplashTimerId = null; } window.ftBootGate = { data: false, rates: false }; document.documentElement.classList.add('ft-data-pending');
   var splash = document.createElement('div');
   splash.id = 'ftWelcomeSplash';
   splash.style.cssText = 'position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f8fafc;opacity:0;transition:opacity .35s ease;pointer-events:none;';
@@ -1255,9 +1280,9 @@ window.ftShowWelcomeSplash = function () {
     '<div style="margin:20px auto 0;width:120px;height:3px;background:#e2e8f0;border-radius:2px;overflow:hidden;"><div style="height:100%;width:40%;background:#1E3A8A;border-radius:2px;animation:ftSplashLoad 1s ease-in-out infinite;"></div></div>' +
     '</div>';
   document.body.appendChild(splash);
-  requestAnimationFrame(function () { splash.style.opacity = '1'; });
-  setTimeout(function () { splash.style.opacity = '0'; setTimeout(function () { if (splash.parentNode) splash.remove(); }, 400); }, 1100);
+  requestAnimationFrame(function () { splash.style.opacity = '1'; }); var _ftSplashDone = false, _ftSplashAt = Date.now(); function _ftEndSplash() { if (_ftSplashDone) return; _ftSplashDone = true; clearInterval(_ftSplashTimer); document.documentElement.classList.remove('ft-data-pending'); splash.style.opacity = '0'; setTimeout(function () { if (splash.parentNode) splash.remove(); }, 400); } var _ftSplashTimer = setInterval(function () { var _g = window.ftBootGate || {}; var _el = Date.now() - _ftSplashAt; if (((!!_g.data && (!!_g.rates || _el > 2500)) && _el >= 1150) || _el > 6000) _ftEndSplash(); }, 80); window._ftSplashTimerId = _ftSplashTimer;
 };
+window.ftMarkFirstRender = function () { window.ftBootGate = window.ftBootGate || {}; window.ftBootGate.data = true; }; window.ftRatesSettled = function () { window.ftBootGate = window.ftBootGate || {}; window.ftBootGate.rates = true; };
 function ftSetupFinpinInputs(attr, onComplete) {
   var inputs = Array.from(document.querySelectorAll('input[' + attr + ']'));
   inputs.forEach(function(input, idx) {
@@ -1268,13 +1293,13 @@ function ftSetupFinpinInputs(attr, onComplete) {
       inputs.forEach(function(other) { if (other !== input && other.dataset.finpinDigit) other.value = '●'; });
       if (digit) {
         this._finpinMaskTimer = setTimeout(function() { if (input.dataset.finpinDigit) input.value = '●'; }, 700);
-        if (idx < inputs.length - 1) inputs[idx + 1].focus();
+        if (idx < inputs.length - 1 && !window.ftPinTouchMode) inputs[idx + 1].focus();
         if (inputs.every(function(i) { return i.dataset.finpinDigit; }) && this._finpinComplete) this._finpinComplete();
       }
     });
     input.addEventListener('focus', function() { this.select(); });
     input.addEventListener('keydown', function(e) {
-      if (e.key === 'Backspace') { e.preventDefault(); var target = this.dataset.finpinDigit ? this : inputs[Math.max(0, idx - 1)]; clearTimeout(target._finpinMaskTimer); target.dataset.finpinDigit = ''; target.value = ''; target.focus(); }
+      if (e.key === 'Backspace') { e.preventDefault(); var target = this.dataset.finpinDigit ? this : inputs[Math.max(0, idx - 1)]; clearTimeout(target._finpinMaskTimer); target.dataset.finpinDigit = ''; target.value = ''; if (!window.ftPinTouchMode) target.focus(); }
       else if (e.key === 'Enter') { e.preventDefault(); if (this._finpinComplete) this._finpinComplete(); }
     });
   });
@@ -1729,13 +1754,13 @@ async function initUserData(loginId) { if (dataUnsubscribe) dataUnsubscribe(); d
         if (hhOwners.length === 1) {state.householdOwnerUid=hhOwners[0];state.householdId='hh_'+hhOwners[0];}
       } catch(err){console.warn('Could not restore previous household membership:',err);}
     }
-  } else { if (loginId === 'US' && isFirstLoad) { await migrateExistingData(loginId); } else { Object.assign(state, { rates: { ...DEFAULT_RATES }, displayCurrency: 'INR', banks: [], debts: [], gold: [], sips: [], expenses: {}, settlements: {}, transfers: [], friends: [], friendSplits: {}, friendLedger: [], settings: { people: [], bankType1: DEFAULT_BANK_TYPE1, bankType2: DEFAULT_BANK_TYPE2, showSecondaryAccount: true, showLiabilities: false, showGoldSip: true, showTransfers: false, showCreditCard: true, showPendingPayments: true, showIndividualSummary: true, allowedCurrencies: [], adminLogo: '', adminTagline: 'Financial Planning & Portfolio', theme: 'default' } }); } } isFirstLoad = false; if (currentUser && currentUser.name) { const _dn = currentUser.name.trim().split(/\s+/).slice(0,2).join(' '); if (_dn && (!state.settings.people || state.settings.people.length === 0)) { if(!state.settings.people) state.settings.people = []; state.settings.people.push(_dn); saveData(); } } /* PATCH: permanently include logged-in user as a household member */ if (currentUser && getPeople()[0]) { const _hhMe = getPeople()[0]; if (!Array.isArray(state.householdMembers)) state.householdMembers = []; const _hhHasMe = state.householdMembers.some(function(m){ return m.name === _hhMe; }); if (!_hhHasMe) { state.householdMembers.unshift({ id: 'hh_self_' + (currentUser.uid || 'me'), name: _hhMe, isSelf: true }); window._ftNeedHhSave = true; } else { const _sm = state.householdMembers.find(function(m){ return m.name === _hhMe; }); if (_sm && !_sm.isSelf) { _sm.isSelf = true; window._ftNeedHhSave = true; } } } if (currentUser && !state.settings.firstTimeSetupDone && (state.banks||[]).length === 0 && Object.keys(state.expenses||{}).length === 0) { if (typeof window.showFirstTimeGuidance === 'function') window.showFirstTimeGuidance(); } const liveRateInput = document.getElementById('liveRateInput'); if (liveRateInput) { const _rc = (window.getSecondCurrency ? window.getSecondCurrency() : 'SAR'); liveRateInput.value = (state.rates[_rc] || DEFAULT_RATES[_rc] || 1).toFixed(2); } const displaySelect = document.getElementById('displayCurrencySelect'); if (displaySelect) displaySelect.value = state.displayCurrency || 'INR'; if (typeof window.populateDisplayCurrencySelect === 'function') window.populateDisplayCurrencySelect(); if (typeof window.populateLiveRateInput === 'function') window.populateLiveRateInput(); if (typeof window.setCommonGoldPurity === 'function') window.setCommonGoldPurity(activeCommonPurity); const cm = currentMonthStr(); ['expenseMonthSelect','friendSplitMonthSelect','sharedSplitMonthSelect','settlementMonthSelect','transferMonthSelect','incomeMonthSelect','cashbookMonthSelect','cashbookPdfMonthSelect','householdMonthSelect'].forEach(id => { const el = document.getElementById(id); if(el&&(wasFirstLoad||!el.value))el.value=cm; }); updateAllMonthNavLabels(); applyVisibilitySettings(); if (typeof window.ftApplyTheme === 'function') window.ftApplyTheme(); if (typeof window.renderAll === 'function') window.renderAll(); renderCreditCardReminders(); setTimeout(function(){ if (window._ftNeedHhSave) { window._ftNeedHhSave = false; saveData(); } if (typeof window.ftUpdateAvatar === 'function') window.ftUpdateAvatar(); if (typeof window.ftApplyDescriptionVisibility === 'function') window.ftApplyDescriptionVisibility(); if (typeof window.ftSubscribePremiumSettings === 'function') window.ftSubscribePremiumSettings(); if (typeof window.ftShowPremiumAdminNav === 'function') window.ftShowPremiumAdminNav(); applyAdminBranding(); if (typeof window.subscribeActiveLogo === 'function') window.subscribeActiveLogo(); if (typeof window.ftRefreshConnectionData === 'function') window.ftRefreshConnectionData(true); if (typeof window.ftHhEnsure === 'function') { try { window.ftHhEnsure(); } catch(_hhe){ console.warn('Household sync on load:', _hhe); } } if (typeof window.fetchLiveRates === 'function') { try { window.fetchLiveRates(true); } catch(_fe){} } }, 50); }, (error) => { console.error('Data load error:', error); if (window.ftShowNetworkNoticeIfDown && window.ftShowNetworkNoticeIfDown()) { } else { alert('Could not load your saved data from the server. Please try again after fixing your network connection.'); } }); }
+  } else { if (loginId === 'US' && isFirstLoad) { await migrateExistingData(loginId); } else { Object.assign(state, { rates: { ...DEFAULT_RATES }, displayCurrency: 'INR', banks: [], debts: [], gold: [], sips: [], expenses: {}, settlements: {}, transfers: [], friends: [], friendSplits: {}, friendLedger: [], settings: { people: [], bankType1: DEFAULT_BANK_TYPE1, bankType2: DEFAULT_BANK_TYPE2, showSecondaryAccount: true, showLiabilities: false, showGoldSip: true, showTransfers: false, showCreditCard: true, showPendingPayments: true, showIndividualSummary: true, allowedCurrencies: [], adminLogo: '', adminTagline: 'Financial Planning & Portfolio', theme: 'default' } }); } } isFirstLoad = false; if (currentUser && currentUser.name) { const _dn = currentUser.name.trim().split(/\s+/).slice(0,2).join(' '); if (_dn && (!state.settings.people || state.settings.people.length === 0)) { if(!state.settings.people) state.settings.people = []; state.settings.people.push(_dn); saveData(); } } /* PATCH: permanently include logged-in user as a household member */ if (currentUser && getPeople()[0]) { const _hhMe = getPeople()[0]; if (!Array.isArray(state.householdMembers)) state.householdMembers = []; const _hhHasMe = state.householdMembers.some(function(m){ return m.name === _hhMe; }); if (!_hhHasMe) { state.householdMembers.unshift({ id: 'hh_self_' + (currentUser.uid || 'me'), name: _hhMe, isSelf: true }); window._ftNeedHhSave = true; } else { const _sm = state.householdMembers.find(function(m){ return m.name === _hhMe; }); if (_sm && !_sm.isSelf) { _sm.isSelf = true; window._ftNeedHhSave = true; } } } if (currentUser && !state.settings.firstTimeSetupDone && (state.banks||[]).length === 0 && Object.keys(state.expenses||{}).length === 0) { if (typeof window.showFirstTimeGuidance === 'function') window.showFirstTimeGuidance(); } const liveRateInput = document.getElementById('liveRateInput'); if (liveRateInput) { const _rc = (window.getSecondCurrency ? window.getSecondCurrency() : 'SAR'); liveRateInput.value = (state.rates[_rc] || DEFAULT_RATES[_rc] || 1).toFixed(2); } const displaySelect = document.getElementById('displayCurrencySelect'); if (displaySelect) displaySelect.value = state.displayCurrency || 'INR'; if (typeof window.populateDisplayCurrencySelect === 'function') window.populateDisplayCurrencySelect(); if (typeof window.populateLiveRateInput === 'function') window.populateLiveRateInput(); if (typeof window.setCommonGoldPurity === 'function') window.setCommonGoldPurity(activeCommonPurity); const cm = currentMonthStr(); ['expenseMonthSelect','friendSplitMonthSelect','sharedSplitMonthSelect','settlementMonthSelect','transferMonthSelect','incomeMonthSelect','cashbookMonthSelect','cashbookPdfMonthSelect','householdMonthSelect'].forEach(id => { const el = document.getElementById(id); if(el&&(wasFirstLoad||!el.value))el.value=cm; }); updateAllMonthNavLabels(); applyVisibilitySettings(); if (typeof window.ftApplyTheme === 'function') window.ftApplyTheme(); if (typeof window.renderAll === 'function') window.renderAll(); renderCreditCardReminders(); if (wasFirstLoad && typeof window.ftMarkFirstRender === 'function') window.ftMarkFirstRender(); setTimeout(function(){ if (window._ftNeedHhSave) { window._ftNeedHhSave = false; saveData(); } if (typeof window.ftUpdateAvatar === 'function') window.ftUpdateAvatar(); if (typeof window.ftApplyDescriptionVisibility === 'function') window.ftApplyDescriptionVisibility(); if (typeof window.ftSubscribePremiumSettings === 'function') window.ftSubscribePremiumSettings(); if (typeof window.ftShowPremiumAdminNav === 'function') window.ftShowPremiumAdminNav(); applyAdminBranding(); if (typeof window.subscribeActiveLogo === 'function') window.subscribeActiveLogo(); if (typeof window.ftRefreshConnectionData === 'function') window.ftRefreshConnectionData(true); if (typeof window.ftHhEnsure === 'function') { try { window.ftHhEnsure(); } catch(_hhe){ console.warn('Household sync on load:', _hhe); } } if (typeof window.fetchLiveRates === 'function') { try { window.fetchLiveRates(true); } catch(_fe){} } }, 50); }, (error) => { console.error('Data load error:', error); if (typeof window.ftMarkFirstRender === 'function') window.ftMarkFirstRender(); if (window.ftShowNetworkNoticeIfDown && window.ftShowNetworkNoticeIfDown()) { } else { alert('Could not load your saved data from the server. Please try again after fixing your network connection.'); } }); }
 async function migrateExistingData(loginId) { try { const snapshot = await get(ref(db, 'fintrack_data')); const oldData = snapshot.val(); if (oldData) { const migratedState = { rates: { ...DEFAULT_RATES, ...(oldData.liveRate ? { SAR: oldData.liveRate } : {}), ...(oldData.rates || {}) }, displayCurrency: 'INR', banks: Array.isArray(oldData.banks) ? oldData.banks : (oldData.banks ? Object.values(oldData.banks) : []), debts: Array.isArray(oldData.debts) ? oldData.debts : (oldData.debts ? Object.values(oldData.debts) : []), gold: Array.isArray(oldData.gold) ? oldData.gold : (oldData.gold ? Object.values(oldData.gold) : []), sips: Array.isArray(oldData.sips) ? oldData.sips : (oldData.sips ? Object.values(oldData.sips) : []), expenses: oldData.expenses || {}, settlements: oldData.settlements || {}, transfers: Array.isArray(oldData.transfers) ? oldData.transfers : (oldData.transfers ? Object.values(oldData.transfers) : []), friends: [], friendSplits: {}, friendLedger: [], settings: { people: [], bankType1: DEFAULT_BANK_TYPE1, bankType2: DEFAULT_BANK_TYPE2, showSecondaryAccount: true, showLiabilities: false, showGoldSip: true, showTransfers: false, showCreditCard: true, showPendingPayments: true, showIndividualSummary: true, allowedCurrencies: [], adminLogo: '', adminTagline: 'Financial Planning & Portfolio' } }; migratedState.banks.forEach(b => { if (!b.country) b.country = b.currency === 'INR' ? 'India' : 'Saudi Arabia'; if (!b.date) b.date = ''; if (!b.bankType) b.bankType = (b.currency === 'INR') ? 1 : 2; }); migratedState.gold.forEach(g => { if (g.date) g.date = convertGoldDate(g.date); }); migratedState.debts.forEach(d => { if (!d.payments) d.payments = []; else if (!Array.isArray(d.payments)) d.payments = Object.values(d.payments); }); await set(ref(db, `userData/${loginId}`), migratedState); const userSnap = await get(ref(db, `users/${loginId}`)); if (!userSnap.exists()) { await set(ref(db, `users/${loginId}`), { name: 'Existing User', loginId, password: encodePassword('Juby@8055'), createdAt: new Date().toISOString() }); } console.log("Migration complete: existing data moved to user-specific path."); } else { const userSnap = await get(ref(db, `users/${loginId}`)); if (!userSnap.exists()) { await set(ref(db, `users/${loginId}`), { name: 'Existing User', loginId, password: encodePassword('Juby@8055'), createdAt: new Date().toISOString() }); } } } catch(err) { console.error("Migration error:", err); } }
 function normalizeState(val) { if (!val) return; state.rates = val.rates || { ...DEFAULT_RATES }; state.displayCurrency = val.displayCurrency || 'INR'; state.banks = window.ftNormalizeBanks ? window.ftNormalizeBanks(val.banks) : (Array.isArray(val.banks) ? val.banks : (val.banks ? Object.values(val.banks) : [])); state.debts = Array.isArray(val.debts) ? val.debts : (val.debts ? Object.values(val.debts) : []); state.gold = Array.isArray(val.gold) ? val.gold : (val.gold ? Object.values(val.gold) : []); state.sips = Array.isArray(val.sips) ? val.sips : (val.sips ? Object.values(val.sips) : []); state.transfers = Array.isArray(val.transfers) ? val.transfers : (val.transfers ? Object.values(val.transfers) : []); state.expenses = val.expenses || {}; state.settlements = val.settlements || {}; state.friends = Array.isArray(val.friends) ? val.friends : (val.friends ? Object.values(val.friends) : []); state.friendSplits = val.friendSplits || {}; state.friendLedger = Array.isArray(val.friendLedger) ? val.friendLedger : []; state.householdMembers = state.householdId ? state.householdMembers : (Array.isArray(val.householdMembers) ? val.householdMembers : (val.householdMembers ? Object.values(val.householdMembers) : [])); state.householdExpenses = state.householdId ? state.householdExpenses : (Array.isArray(val.householdExpenses) ? val.householdExpenses : (val.householdExpenses ? Object.values(val.householdExpenses) : [])); state.householdSettlements = state.householdId ? state.householdSettlements : (Array.isArray(val.householdSettlements) ? val.householdSettlements : (val.householdSettlements ? Object.values(val.householdSettlements) : [])); state.householdOwnerUid = val.householdOwnerUid || ""; state.householdId = val.householdId || ""; state.householdMigrationComplete = !!val.householdMigrationComplete; state.settings = val.settings || { people: [] }; if (!state.settings.people) state.settings.people = []; if (!state.settings.bankType1) state.settings.bankType1 = DEFAULT_BANK_TYPE1; if (!state.settings.bankType2) state.settings.bankType2 = DEFAULT_BANK_TYPE2; if (state.settings.showSecondaryAccount === undefined) state.settings.showSecondaryAccount = true; if (state.settings.showLiabilities === undefined) state.settings.showLiabilities = false; if (state.settings.showGoldSip === undefined) state.settings.showGoldSip = true; if (state.settings.showTransfers === undefined) state.settings.showTransfers = false; if (state.settings.showCreditCard === undefined) state.settings.showCreditCard = true; if (state.settings.showPendingPayments === undefined) state.settings.showPendingPayments = true; if (state.settings.showIndividualSummary === undefined) state.settings.showIndividualSummary = true; if (!state.settings.allowedCurrencies) state.settings.allowedCurrencies = []; if (state.settings.adminLogo === undefined) state.settings.adminLogo = ''; if (state.settings.adminTagline === undefined) state.settings.adminTagline = 'Financial Planning & Portfolio'; if (state.settings.showTotalLiabilities === undefined) state.settings.showTotalLiabilities = false; if (state.settings.showTotalSavingsGold === undefined) state.settings.showTotalSavingsGold = false; if (state.settings.showMonthlyCashbook === undefined) state.settings.showMonthlyCashbook = true; if (!state.settings.theme) state.settings.theme = 'default'; if (typeof window.ftApplyTheme === 'function') window.ftApplyTheme(); state.banks.forEach(b => { if (!b.country) b.country = b.currency === 'INR' ? 'India' : 'Saudi Arabia'; if (!b.owner) b.owner = getPeople()[0] || ''; if (!b.bankType) b.bankType = (b.currency === 'INR') ? 1 : 2; if (!b.date) b.date = ''; }); state.debts.forEach(d => { if (!d.payments) d.payments = []; else if (!Array.isArray(d.payments)) d.payments = Object.values(d.payments); if (!d.currency) d.currency = 'INR'; }); state.gold.forEach(g => { if (!g.currency) g.currency = 'SAR'; }); state.sips.forEach(s => { if (!s.currency) s.currency = 'INR'; }); if (state.settings.people.length === 0 && state.banks.length > 0) { const owners = []; state.banks.forEach(b => { if (b.owner && !owners.includes(b.owner)) owners.push(b.owner); }); if (owners.length > 0) { state.settings.people = owners; saveData(); } } if (typeof val.liveRate === 'number' && !state.rates.SAR) state.rates.SAR = val.liveRate; if(window.ftHhApplySharedState)window.ftHhApplySharedState(); }
 window.saveData = function() { if (typeof window.renderAll === 'function') window.renderAll(); if (!dataLoaded) { console.warn('saveData skipped: user data has not loaded from the server yet.'); return; } if (currentUser) { try { const _save = JSON.parse(JSON.stringify({ rates: state.rates, displayCurrency: state.displayCurrency, banks: state.banks, debts: state.debts, gold: state.gold, sips: state.sips, expenses: state.expenses, settlements: state.settlements, transfers: state.transfers, friends: state.friends, friendSplits: state.friendSplits, friendLedger: state.friendLedger, householdMembers: state.householdMembers, householdExpenses: state.householdExpenses, householdSettlements: state.householdSettlements, householdOwnerUid: state.householdOwnerUid, householdId: state.householdId, householdMigrationComplete: !!state.householdMigrationComplete, settings: state.settings })); const _banks=_save.banks;delete _save.banks;const _bankSave=window.ftSaveBankChanges(_banks);window._ftUserSavePromise=Promise.all([update(ref(db,'userData/'+currentUser.loginId),_save),_bankSave]).then(function(){return true;}).catch(function(err){console.error('Firebase sync error:',err);if (window.ftShowNetworkNoticeIfDown && window.ftShowNetworkNoticeIfDown()) { } else { alert('Could not save changes to Firebase. Please try again after fixing your network connection.'); }return false;});return window._ftUserSavePromise; } catch(e) { console.error("saveData serialize error:", e); } } };
 window.updateExchangeRate = function(val) { const c = window.getSecondCurrency ? window.getSecondCurrency() : 'SAR'; state.rates[c] = parseFloat(val) || DEFAULT_RATES[c] || 1; saveData(); };
 window.changeDisplayCurrency = function(curr) { state.displayCurrency = curr; saveData(); };
-window.fetchLiveRates = async function(silent) { try { const res = await fetch('https://api.exchangerate-api.com/v4/latest/INR'); const data = await res.json(); if (data && data.rates) { for (const curr of Object.keys(CURRENCIES)) { if (curr === 'INR') { state.rates.INR = 1; continue; } if (data.rates[curr]) state.rates[curr] = 1 / data.rates[curr]; } const liveRateInput = document.getElementById('liveRateInput'); if (liveRateInput) { const sc = window.getSecondCurrency ? window.getSecondCurrency() : 'SAR'; liveRateInput.value = (state.rates[sc] || DEFAULT_RATES[sc] || 1).toFixed(2); } saveData(); if (!silent) alert("Live rates fetched successfully!"); if (typeof window.renderAll === 'function') window.renderAll(); } } catch(e) { console.warn("Live rate API error, retaining current rates.", e); if (!silent) alert("Unable to fetch live rates. You can enter rates manually in Settings."); } };
+window.fetchLiveRates = async function(silent) { try { const res = await fetch('https://api.exchangerate-api.com/v4/latest/INR'); const data = await res.json(); if (data && data.rates) { for (const curr of Object.keys(CURRENCIES)) { if (curr === 'INR') { state.rates.INR = 1; continue; } if (data.rates[curr]) state.rates[curr] = 1 / data.rates[curr]; } const liveRateInput = document.getElementById('liveRateInput'); if (liveRateInput) { const sc = window.getSecondCurrency ? window.getSecondCurrency() : 'SAR'; liveRateInput.value = (state.rates[sc] || DEFAULT_RATES[sc] || 1).toFixed(2); } saveData(); if (!silent) alert("Live rates fetched successfully!"); if (typeof window.renderAll === 'function') window.renderAll(); } } catch(e) { console.warn("Live rate API error, retaining current rates.", e); if (!silent) alert("Unable to fetch live rates. You can enter rates manually in Settings."); } finally { if (typeof window.ftRatesSettled === 'function') window.ftRatesSettled(); } };
 window.toggleSidebar = function() { const sb = document.getElementById('sidebar'); const bd = document.getElementById('sidebarBackdrop'); sb.classList.toggle('hidden'); const isMobile = window.innerWidth < 1024; if (bd) { if (isMobile) bd.classList.toggle('active', !sb.classList.contains('hidden')); else bd.classList.remove('active'); } };
 window.switchTab = function(tabId) { var _ftTabFeatureMap = { 'friends': 'friendsSplit', 'settlements': 'settlements', 'gold-sip': 'goldSip', 'liabilities': 'liabilities', 'transfers': 'transfers', 'household': 'household' }; if (_ftTabFeatureMap[tabId] && typeof window.ftCheckFeatureAccess === 'function' && !window.ftCheckFeatureAccess(_ftTabFeatureMap[tabId])) return; document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden')); document.querySelectorAll('#sidebar nav button[id^="side-tab-"]').forEach(btn => { btn.className = "w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold text-slate-600 hover:bg-slate-100 hover:text-slate-900 flex items-center space-x-3 transition"; }); document.querySelectorAll('.topnav-btn').forEach(btn => { btn.className = "topnav-btn px-3 py-1.5 rounded text-xs font-bold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"; }); const section = document.getElementById(`sec-${tabId}`); if (section) section.classList.remove('hidden'); if (tabId === 'settings' && typeof window.ftUpdateFinpinStatus === 'function') { setTimeout(window.ftUpdateFinpinStatus, 200); } const sideBtn = document.getElementById(`side-tab-${tabId}`); if (sideBtn) sideBtn.className = "w-full text-left px-3 py-2.5 rounded-lg text-xs font-bold bg-indigo-600 text-white flex items-center space-x-3 transition"; const topBtn = document.getElementById(`top-tab-${tabId}`); if (topBtn) topBtn.className = "topnav-btn px-3 py-1.5 rounded text-xs font-bold bg-indigo-600 text-white transition"; if (tabId === 'premium-settings' && typeof window.ftLoadPremiumSettings === 'function') window.ftLoadPremiumSettings(); if (tabId === 'profile' && typeof window.loadProfileNotifications === 'function') { window.loadProfileNotifications(); } document.getElementById("sidebar").classList.add("hidden"); const sbd = document.getElementById('sidebarBackdrop'); if (sbd) sbd.classList.remove('active'); applyVisibilitySettings(); if (typeof window.ftUpdateBottomNav === 'function') window.ftUpdateBottomNav(); };
 window.saveVisibilitySettings = function() { if (!state.settings) state.settings = {}; state.settings.showSecondaryAccount = document.getElementById('settingShowSecondaryAccount').checked; state.settings.showLiabilities = document.getElementById('settingShowLiabilities').checked; state.settings.showGoldSip = document.getElementById('settingShowGoldSip').checked; state.settings.showTransfers = document.getElementById('settingShowTransfers').checked; state.settings.showCreditCard = document.getElementById('settingShowCreditCard').checked; state.settings.showPendingPayments = document.getElementById('settingShowPendingPayments').checked; state.settings.showIndividualSummary = document.getElementById('settingShowIndividualSummary').checked; state.settings.showTotalLiabilities = document.getElementById('settingShowTotalLiabilities').checked; state.settings.showTotalSavingsGold = document.getElementById('settingShowTotalSavingsGold').checked; state.settings.showMonthlyCashbook = document.getElementById('settingShowMonthlyCashbook').checked; state.settings.showOptionalQuickLinks = document.getElementById('settingShowOptionalQuickLinks').checked; state.settings.showHousehold = document.getElementById('settingShowHousehold').checked; applyVisibilitySettings(); saveData(); alert('Visibility settings saved successfully!'); };
@@ -4748,7 +4773,7 @@ window.ftUpdateFooterStatus = function() {
 
     function mkNav(inputId, onCh) {
       var w = document.createElement('div');
-      w.className = 'inline-flex items-center gap-0.5 bg-white/70 border border-slate-200 rounded-lg px-1 py-0.5 my-2';
+      w.className = 'inline-flex items-center gap-0.5 bg-white/70 border border-slate-200 rounded-lg px-1 py-0.5 my-2'; w.setAttribute('data-ft-month-handler', onCh || '');
       w.innerHTML =
         '<button type="button" class="text-slate-500 px-2 py-1 rounded hover:bg-slate-100"><i class="fa-solid fa-chevron-left text-[10px]"></i></button>' +
         '<span class="font-bold text-xs text-slate-700 min-w-[100px] text-center select-none" id="navLabel_' + inputId + '"></span>' +
@@ -5093,69 +5118,12 @@ window.ftLoadPublicFeedback = async function(){ var list=document.getElementById
       } catch (e) { reject(e); }
     });
   };
-  window.ftCapSavePdf = async function (doc, fileName, title, openShare) {
-    var isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem && (!window.Capacitor.isNativePlatform || window.Capacitor.isNativePlatform())) {
-      try {
-        var FS = window.Capacitor.Plugins.Filesystem;
-        var base64 = await window.ftPdfToBase64(doc);
-        var dir = (FS.Directory && (FS.Directory.Documents || FS.Directory.Data)) || 'DOCUMENTS';
-        await FS.writeFile({ path: fileName, data: base64, directory: dir, recursive: true });
-        var uriRes = await FS.getUri({ path: fileName, directory: dir });
-        var fileUri = uriRes && uriRes.uri ? uriRes.uri : '';
-        if (openShare && window.Capacitor.Plugins.Share && fileUri) {
-          try {
-            await window.Capacitor.Plugins.Share.share({ files: [fileUri], title: title || fileName, dialogTitle: title || fileName });
-            if (typeof ftToast === 'function') ftToast('Report saved — share sheet opened.');
-          } catch (shareErr) {
-            if (shareErr && (shareErr.message === 'cancel' || (shareErr.code && String(shareErr.code).indexOf('cancel') > -1))) {
-              if (typeof ftToast === 'function') ftToast('Report saved to device storage.');
-            } else {
-              console.error('Share failed', shareErr);
-              if (typeof ftToast === 'function') ftToast('Report saved to device storage.');
-            }
-          }
-        } else {
-          if (typeof ftToast === 'function') ftToast('Report saved to device storage.');
-        }
-        return true;
-      } catch (err) {
-        console.error('Capacitor PDF save failed', err);
-        if (typeof alert === 'function') alert('Could not save the PDF to the device: ' + (err && err.message ? err.message : err) + '. Falling back to download.');
-      }
-    }
-    var file = new File([doc.output('blob')], fileName, { type: 'application/pdf' });
-    if (isMobile && navigator.canShare && navigator.canShare({ files: [file] })) {
-      try { await navigator.share({ files: [file], title: title || fileName }); return true; }
-      catch (e) { if (e && e.name !== 'AbortError') console.error('Web share failed', e); return false; }
-    }
-    try { return window.ftWebDownloadPdf(doc, fileName); }
-    catch (e) { console.error('PDF download failed', e); if (typeof alert === 'function') alert('Could not save the PDF. Please try again.'); return false; }
-  };
+  // The final shared PDF bridge handles all native saves.
   window.ftSaveActiveReport = async function () {
     if (!active) return; var report = active, status = document.getElementById('ftReportStatus');
     if (status) status.textContent = 'Preparing the PDF for save / share…';
     var ok = await window.ftCapSavePdf(report.doc, report.name, report.title, true);
     if (status) status.textContent = ok ? 'Report saved. Use the share sheet to save a copy or send it.' : 'Could not save the report. Please try again.';
-  };
-  // View opens the in-app preview; download saves straight to the device — no preview.
-  window.ftShareOrSavePdf = async function (doc, fileName, title, mode) {
-    if (mode === 'view') { ftShowReport(doc, fileName, title); return; }
-    window._ftInAppHandoffAt = Date.now();
-    var isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-    if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Filesystem && (!window.Capacitor.isNativePlatform || window.Capacitor.isNativePlatform())) {
-      window.ftPdfHandoff = { uid: currentUser && currentUser.uid, kind: 'download', hidden: false };
-      try { await window.ftCapSavePdf(doc, fileName, title, true); }
-      finally { if (window.ftPdfHandoff) { window.ftPdfHandoff.settled = true; if (document.visibilityState === 'visible' && !window.ftPdfHandoff.hidden) window.ftPdfHandoff = null; } }
-      return;
-    }
-    var file = new File([doc.output('blob')], fileName, { type: 'application/pdf' });
-    if (isMobile && navigator.canShare && navigator.canShare({ files: [file] })) {
-      window.ftPdfHandoff = { uid: currentUser && currentUser.uid, kind: 'download', hidden: false };
-      try { await navigator.share({ files: [file], title: title || fileName }); }
-      catch (error) {}
-      finally { if (window.ftPdfHandoff) { window.ftPdfHandoff.settled = true; if (document.visibilityState === 'visible' && !window.ftPdfHandoff.hidden) window.ftPdfHandoff = null; } }
-    } else { try { window.ftWebDownloadPdf(doc, fileName); } catch (e) { console.error('PDF download failed', e); } }
   };
   var logout = window.handleLogout; window.handleLogout = function () { ftCloseReport(); return logout.apply(this, arguments); };
 })();
@@ -5172,17 +5140,7 @@ window.ftLoadPublicFeedback = async function(){ var list=document.getElementById
     })().catch(function (error) { libraries = null; throw error; });
     return libraries;
   }
-  ['downloadHouseholdPDF', 'downloadCashbookPDF', 'downloadCashbookPDFByKey'].forEach(function (name) {
-    var original = window[name], busy = false;
-    window[name] = async function () {
-      if (busy) return; busy = true; var args = arguments;
-      var button = document.activeElement, label = button && button.tagName === 'BUTTON' ? button.innerHTML : null;
-      if (label !== null) { button.disabled = true; button.textContent = 'Preparing…'; }
-      try { await ensureLibraries(); return original.apply(window, args); }
-      catch (error) { alert('Could not open the PDF report: ' + error.message); }
-      finally { busy = false; if (label !== null) { button.disabled = false; button.innerHTML = label; } }
-    };
-  });
+  window.ftEnsurePdfLibraries = ensureLibraries;
 })();
 </script>
 <script>
@@ -5839,6 +5797,15 @@ window.ftToggleHhMenu = function (e) {
   /* ---------- Local notifications ---------- */
   var _ftNotifInitDone = false;
   window.ftInitLocalNotifications = async function () {
+    if (!isNative()) return;
+    var cap = window.Capacitor;
+    // Remote push owns Android's shared permission; never prompt twice on startup.
+    if (plugin('PushNotifications') || (cap.isPluginAvailable && cap.isPluginAvailable('PushNotifications'))) {
+      if (window.ftEnablePush) return window.ftEnablePush(false);
+      return;
+    }
+    var app = document.getElementById('appContainer');
+    if (!window.currentUser || !app || app.classList.contains('hidden')) return;
     if (_ftNotifInitDone) return;
     _ftNotifInitDone = true;
     try {
@@ -7130,7 +7097,7 @@ window.ftToggleHhMenu = function (e) {
     if (key === 'del') {
       var filled = inputs.filter(function (i) { return i.dataset.finpinDigit; });
       var last = filled[filled.length - 1];
-      if (last) { last.dataset.finpinDigit = ''; last.value = ''; last.focus(); }
+      if (last) { last.dataset.finpinDigit = ''; last.value = ''; }
       return;
     }
     if (key === 'return') {
@@ -8754,139 +8721,7 @@ body.ft-scroll-lock{overscroll-behavior:none;}
     return doc;
   }
 
-  /* ============================================================
-     5. OPEN / DOWNLOAD — works on web, Android and iOS
-     ============================================================ */
-  function blobToBase64(blob) {
-    return new Promise(function (resolve, reject) {
-      var reader = new FileReader();
-      reader.onloadend = function () {
-        try { resolve(String(reader.result || '').split(',')[1] || ''); } catch (e) { reject(e); }
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-  }
-
-  async function nativeSavePdf(blob, fileName, title, open) {
-    var plugins = (window.Capacitor && window.Capacitor.Plugins) || {};
-    if (!plugins.Filesystem || !blob.size) return false;
-    var base64 = await blobToBase64(blob);
-    var dir = (plugins.Filesystem.Directory && (plugins.Filesystem.Directory.Documents || plugins.Filesystem.Directory.Data)) || 'DOCUMENTS';
-    await plugins.Filesystem.writeFile({ path: fileName, data: base64, directory: dir, recursive: true });
-    var uriRes = await plugins.Filesystem.getUri({ path: fileName, directory: dir });
-    var fileUri = uriRes && uriRes.uri;
-    if (open && plugins.FileOpener && fileUri) {
-      try { await plugins.FileOpener.open({ filePath: fileUri, contentType: 'application/pdf' }); return true; } catch (e) {}
-    }
-    if (plugins.Share && fileUri) {
-      try { await plugins.Share.share({ files: [fileUri], title: title || fileName, dialogTitle: title || fileName }); return true; } catch (e) {}
-    }
-    return true;
-  }
-
-  function showPdfOverlay(url, fileName, blob) {
-    var old = document.getElementById('ftPdfOverlay');
-    if (old) old.remove();
-    var wrap = document.createElement('div');
-    wrap.id = 'ftPdfOverlay';
-    var bar = document.createElement('div');
-    bar.className = 'ft-pdf-bar';
-    var title = document.createElement('h3');
-    title.textContent = fileName;
-    var saveBtn = document.createElement('button');
-    saveBtn.type = 'button';
-    saveBtn.className = 'px-3 py-2 bg-[#1E3A8A] text-white font-bold text-xs rounded-lg';
-    saveBtn.textContent = 'Download';
-    saveBtn.onclick = function () {
-      var a = document.createElement('a');
-      a.href = url; a.download = fileName;
-      document.body.appendChild(a); a.click();
-      setTimeout(function () { try { a.remove(); } catch (e) {} }, 1500);
-    };
-    var closeBtn = document.createElement('button');
-    closeBtn.type = 'button';
-    closeBtn.className = 'px-3 py-2 bg-slate-200 text-slate-800 font-bold text-xs rounded-lg';
-    closeBtn.textContent = 'Close';
-    closeBtn.onclick = function () { wrap.remove(); try { window.ftSyncScrollLock(); } catch (e) {} };
-    bar.appendChild(title); bar.appendChild(saveBtn); bar.appendChild(closeBtn);
-    var frame = document.createElement('iframe');
-    frame.src = url;
-    frame.title = fileName;
-    wrap.appendChild(bar); wrap.appendChild(frame);
-    document.body.appendChild(wrap);
-    try { window.ftSyncScrollLock(); } catch (e) {}
-  }
-
-  window.ftOpenPdfDocument = function (doc, fileName, title) {
-    var blob;
-    try { blob = doc.output('blob'); } catch (e) { blob = null; }
-    if (!blob || !blob.size || blob.size < 700) {
-      alert('The PDF could not be created. Please try again.');
-      return false;
-    }
-    if (NATIVE) {
-      nativeSavePdf(blob, fileName, title, true).catch(function (err) {
-        console.error('Native PDF open failed', err);
-        alert('Could not open the PDF on this device: ' + (err && err.message ? err.message : err));
-      });
-      return true;
-    }
-    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    var file = null;
-    try { file = new File([blob], fileName, { type: 'application/pdf' }); } catch (e) { file = null; }
-    if (isIOS && file && navigator.canShare && navigator.canShare({ files: [file] })) {
-      navigator.share({ files: [file], title: title || fileName }).catch(function () {
-        showPdfOverlay(URL.createObjectURL(blob), fileName, blob);
-      });
-      return true;
-    }
-    var url = URL.createObjectURL(blob);
-    var win = null;
-    try { win = window.open(url, '_blank'); } catch (e) { win = null; }
-    if (!win) showPdfOverlay(url, fileName, blob);
-    setTimeout(function () { try { URL.revokeObjectURL(url); } catch (e) {} }, 90000);
-    return true;
-  };
-
-  window.ftDownloadPdfDocument = async function (doc, fileName) {
-    var blob;
-    try { blob = doc.output('blob'); } catch (e) { blob = null; }
-    if (!blob || !blob.size || blob.size < 700) {
-      alert('The PDF could not be created. Please try again.');
-      return false;
-    }
-    if (NATIVE) {
-      try {
-        await nativeSavePdf(blob, fileName, fileName, false);
-        if (typeof window.ftToast === 'function') window.ftToast('Saved ' + fileName);
-        return true;
-      } catch (err) {
-        console.error('Native PDF save failed', err);
-      }
-    }
-    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    try {
-      var file = new File([blob], fileName, { type: 'application/pdf' });
-      if (isIOS && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: fileName });
-        return true;
-      }
-    } catch (e) { /* fall through to a normal download */ }
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    a.rel = 'noopener';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(function () {
-      try { a.remove(); } catch (e) {}
-      try { URL.revokeObjectURL(url); } catch (e) {}
-    }, 5000);
-    if (typeof window.ftToast === 'function') window.ftToast('Downloading ' + fileName);
-    return true;
-  };
+  /* PDF open/download is provided by the final shared PDF bridge below. */
 
   /* ============================================================
      6. WIRE THE REPORTS INTO THE EXISTING BUTTONS
@@ -8911,8 +8746,8 @@ body.ft-scroll-lock{overscroll-behavior:none;}
       return;
     }
     var fileName = 'FinTrack_Monthly_Cashbook_' + fileStamp(month) + '.pdf';
-    if (mode === 'view') window.ftOpenPdfDocument(doc, fileName, 'Monthly Cashbook ' + monthLabel(month));
-    else window.ftDownloadPdfDocument(doc, fileName);
+    if (mode === 'view') return window.ftOpenPdfDocument(doc, fileName, 'Monthly Cashbook ' + monthLabel(month));
+    return window.ftDownloadPdfDocument(doc, fileName);
   };
 
   window.downloadCashbookPDFByKey = function (key) {
@@ -8943,7 +8778,7 @@ body.ft-scroll-lock{overscroll-behavior:none;}
     ]);
     finalizePdf(doc, 'Monthly Cashbook  \u2022  ' + monthLabel(month) + '  \u2022  ' + currency);
     var fileName = 'FinTrack_Monthly_Cashbook_' + fileStamp(month) + '.pdf';
-    window.ftDownloadPdfDocument(doc, fileName);
+    return window.ftDownloadPdfDocument(doc, fileName);
   };
 
   window.downloadHouseholdPDF = function () {
@@ -8959,7 +8794,7 @@ body.ft-scroll-lock{overscroll-behavior:none;}
       alert('Could not generate the household PDF: ' + (err && err.message ? err.message : err));
       return;
     }
-    window.ftDownloadPdfDocument(doc, 'FinTrack_Household_Settlement_' + fileStamp(month) + '.pdf');
+    return window.ftDownloadPdfDocument(doc, 'FinTrack_Household_Settlement_' + fileStamp(month) + '.pdf');
   };
 
   window.ftShareOrSavePdf = function (doc, fileName, title, mode) {
@@ -9061,6 +8896,7 @@ body.ft-scroll-lock{overscroll-behavior:none;}
     requestAnimationFrame(function () { el.style.opacity = '1'; });
   }
   function launchSplashHide() {
+    document.documentElement.classList.remove('ft-booting');
     var el = document.getElementById('ftLaunchSplash');
     if (!el) return;
     el.style.opacity = '0';
@@ -9355,8 +9191,8 @@ body.ft-scroll-lock{overscroll-behavior:none;}
   function syncAll() { triggers.forEach(sync); }
 
   function upgrade(input) {
-    if (!input || input.dataset.ftcal || input.disabled) return;
-    var mode = input.type === 'month' ? 'month' : 'day';
+    if (!input || input.dataset.ftcal || input.disabled || input.type === 'month') return; /* one calendar per field */
+    var mode = 'day';
     input.dataset.ftcal = mode;
     input.style.display = 'none';
 
@@ -9389,7 +9225,7 @@ body.ft-scroll-lock{overscroll-behavior:none;}
   }
 
   function scan() {
-    Array.prototype.forEach.call(document.querySelectorAll('input[type="date"], input[type="month"]'), upgrade);
+    Array.prototype.forEach.call(document.querySelectorAll('input[type="month"]'), function (i) { var s = i.nextElementSibling; if (s && String(s.className || '').indexOf('ftcal-field') > -1) s.remove(); if (i.style.display === 'none') i.style.display = ''; }); Array.prototype.forEach.call(document.querySelectorAll('input[type="date"]'), upgrade);
   }
 
   /* ---------------- month jumps in every section ---------------- */
@@ -10130,7 +9966,7 @@ body.ft-scroll-lock{overscroll-behavior:none;}
       var box = document.getElementById('ftPeriodInputs');
       if (!box) return;
       if (!plan.period.month) plan.period.month = currentMonth();
-      var html = '<label class="text-[#64748B]">Month <input type="month" value="' + plan.period.month + '" onchange="ftInsightMonth(this.value)" class="ml-1 bg-white border border-[#E2E8F0] rounded-lg px-2 py-1 text-[#1E3A8A] font-bold"></label>' +
+      var html = '<label class="text-[#64748B]"><input type="month" value="' + plan.period.month + '" onchange="ftInsightMonth(this.value)" class="ml-1 bg-white border border-[#E2E8F0] rounded-lg px-2 py-1 text-[#1E3A8A] font-bold"></label>' +
         '<button type="button" onclick="ftInsightThisMonth()" class="px-2.5 py-1.5 rounded-lg border border-[#C7D7F5] bg-[#F5F8FF] text-[#1E3A8A] font-bold">This month</button>';
       if (box.innerHTML !== html) box.innerHTML = html;
     };
@@ -10543,6 +10379,8 @@ body.ft-scroll-lock{overscroll-behavior:none;}
     });
   }
 
+  window.ftPaintBalance = paintBalance;
+
   /* ---------- 4. the same month control in every section ---------- */
   var MONTH_IDS = ['incomeMonthSelect', 'cashbookMonthSelect', 'cashbookPdfMonthSelect', 'expenseMonthSelect', 'friendSplitMonthSelect', 'householdMonthSelect', 'debtMonthSelect', 'goldSipMonthSelect', 'transferMonthSelect'];
   function monthLabel(value) {
@@ -10565,22 +10403,9 @@ body.ft-scroll-lock{overscroll-behavior:none;}
         bar.appendChild(anchor);
       }
       if (node.tagName === 'SELECT') node.classList.add('ft-month-select');
-      if (bar.querySelector('[data-ft-thismonth]')) return;
-      var button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'ft-this-month';
-      button.setAttribute('data-ft-thismonth', '1');
-      button.textContent = 'This month';
-      button.onclick = function () {
-        var month = window.currentMonthStr ? window.currentMonthStr() : '';
-        if (!month) return;
-        node.value = month;
-        var label = $('navLabel_' + id);
-        if (label) label.textContent = monthLabel(month);
-        try { node.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {}
-        if (window.renderAll) window.renderAll();
-      };
-      bar.appendChild(button);
+      /* the month is chosen straight from the calendar control, so no extra button */
+      var stale = bar.querySelector('[data-ft-thismonth]');
+      if (stale) stale.remove();
     });
   }
 
@@ -10623,74 +10448,7 @@ body.ft-scroll-lock{overscroll-behavior:none;}
     document.body.classList.toggle('ft-scroll-locked', open);
   }
 
-  /* ---------- 6. reports really leave the phone ---------- */
-  function pdfBase64(doc) {
-    try { return String(doc.output('datauristring')).split(',')[1] || ''; } catch (e) { return ''; }
-  }
-  function saveOnDevice(doc, fileName, openAfter) {
-    var capacitor = window.Capacitor;
-    var plugins = (capacitor && capacitor.Plugins) || {};
-    if (!plugins.Filesystem) return Promise.resolve(false);
-    var directory = (plugins.Filesystem.Directory && (plugins.Filesystem.Directory.Documents || plugins.Filesystem.Directory.Data)) || 'DOCUMENTS';
-    return plugins.Filesystem.writeFile({ path: fileName, data: pdfBase64(doc), directory: directory, recursive: true })
-      .then(function (written) {
-        var uri = (written && written.uri) || '';
-        if (openAfter && plugins.FileOpener && uri) {
-          return plugins.FileOpener.open({ filePath: String(uri).replace('file://', ''), contentType: 'application/pdf' }).then(function () { return true; });
-        }
-        if (plugins.Share && uri) {
-          return plugins.Share.share({ title: fileName, url: uri, dialogTitle: 'FinTrack report' })
-            .then(function () { return true; })
-            .catch(function () { toast('Saved to Documents/' + fileName); return true; });
-        }
-        toast('Saved to Documents/' + fileName);
-        return true;
-      })
-      .catch(function () { return false; });
-  }
-
-  var hostShareOrSave = window.ftShareOrSavePdf;
-  window.ftShareOrSavePdf = function (doc, fileName, title, mode) {
-    var args = arguments;
-    var capacitor = window.Capacitor;
-    if (capacitor && capacitor.Plugins && capacitor.Plugins.Filesystem) {
-      return saveOnDevice(doc, fileName, mode === 'view').then(function (ok) {
-        if (ok) return true;
-        return typeof hostShareOrSave === 'function' ? hostShareOrSave.apply(window, args) : false;
-      });
-    }
-    if (typeof hostShareOrSave === 'function') return hostShareOrSave.apply(window, args);
-    try { doc.save(fileName); return true; } catch (e) { return false; }
-  };
-
-  var hostDownloadPdf = window.ftDownloadPdfDocument;
-  window.ftDownloadPdfDocument = async function (doc, fileName) {
-    var capacitor = window.Capacitor;
-    if (capacitor && capacitor.Plugins && capacitor.Plugins.Filesystem) {
-      var saved = await saveOnDevice(doc, fileName, false);
-      if (saved) return true;
-    }
-    if (typeof hostDownloadPdf === 'function') return hostDownloadPdf.apply(this, arguments);
-    return false;
-  };
-
-  var hostOpenPdf = window.ftOpenPdfDocument;
-  window.ftOpenPdfDocument = function (doc, fileName, title) {
-    var capacitor = window.Capacitor;
-    var plugins = (capacitor && capacitor.Plugins) || {};
-    if (plugins.Filesystem) {
-      saveOnDevice(doc, fileName, true).then(function (ok) {
-        if (!ok && window.ftShowReport) window.ftShowReport(doc, fileName, title);
-      });
-      return true;
-    }
-    /* inside the app shell without a file plugin, the report opens in the
-       built-in viewer — the phone cannot render a PDF page inside a web view */
-    if (capacitor && window.ftShowReport) { window.ftShowReport(doc, fileName, title); return true; }
-    if (typeof hostOpenPdf === 'function') return hostOpenPdf.apply(this, arguments);
-    if (window.ftShowReport) { window.ftShowReport(doc, fileName, title); return true; }
-    return false;
-  };
+  /* PDF handling is centralized in the final shared PDF bridge. */
 
   /* ---------- 7. keep the page in sync ---------- */
   var hostRenderAll = window.renderAll;
@@ -10735,12 +10493,32 @@ body.ft-scroll-lock{overscroll-behavior:none;}
      Nothing may freeze the page: no scroll lock class, no inline
      overflow:hidden, no cancelled touch gestures.
      ============================================================ */
+  function overlayShowing() {
+    var nodes = document.querySelectorAll('.ft-overlay, [class*="ft-sheet"], #ftSearchPanel, #ftMonthPickerPopover, [id^="modal"]');
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      if (!el || !el.isConnected) continue;
+      if (el.classList.contains('hidden')) continue;
+      if (!el.getClientRects().length) continue;
+      var cs = window.getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.opacity === '0') continue;
+      return true;
+    }
+    return false;
+  }
+
   function freePageScroll() {
     var html = document.documentElement;
     var body = document.body;
-    if (html.classList.contains('ft-frozen')) html.classList.remove('ft-frozen');
+    var locked = html.classList.contains('ft-frozen') || !!(body && body.classList.contains('ft-scroll-locked'));
+    var inlineLocked = html.style.overflow === 'hidden' || !!(body && body.style.overflow === 'hidden');
+    /* writing to the scroll root mid-swipe is what kills the fling on Android,
+       so only touch it when a lock is genuinely stuck */
+    if (!locked && !inlineLocked) return;
     /* an open box intentionally freezes the page behind it */
-    if (body && body.classList.contains('ft-scroll-locked')) return;
+    if (overlayShowing()) return;
+    if (html.classList.contains('ft-frozen')) html.classList.remove('ft-frozen');
+    if (body && body.classList.contains('ft-scroll-locked')) body.classList.remove('ft-scroll-locked');
     if (html.style.overflow === 'hidden') html.style.overflow = '';
     if (body && body.style.overflow === 'hidden') body.style.overflow = '';
   }
@@ -10752,19 +10530,29 @@ body.ft-scroll-lock{overscroll-behavior:none;}
   freePageScroll();
   document.addEventListener('DOMContentLoaded', freePageScroll);
   window.addEventListener('load', freePageScroll);
-  setInterval(freePageScroll, 250);
+  /* a closing box is the usual moment a lock is left behind */
+  document.addEventListener('touchend', function () { setTimeout(freePageScroll, 260); }, { passive: true });
+  document.addEventListener('click', function () { setTimeout(freePageScroll, 260); }, { passive: true });
+  setInterval(freePageScroll, 700);
 
   /* ============================================================
      2. FinPIN boxes never open the device keyboard
      ============================================================ */
   function markPinBoxes() {
-    var boxes = document.querySelectorAll('.finpin-box');
+    var boxes = document.querySelectorAll('input[data-finpin-lock]');
     for (var i = 0; i < boxes.length; i++) {
       var box = boxes[i];
       box.setAttribute('inputmode', 'none');
       box.setAttribute('autocomplete', 'off');
       box.setAttribute('autocorrect', 'off');
       box.setAttribute('spellcheck', 'false');
+      /* readonly is the one flag Android WebView always honours: a read-only
+         field never summons the system keyboard, while the in-app keypad still
+         writes every digit. Desktop keeps normal typing. */
+      if (window.ftPinTouchMode) {
+        if (box.getAttribute('readonly') !== 'readonly') box.setAttribute('readonly', 'readonly');
+        if (box.getAttribute('tabindex') !== '-1') box.setAttribute('tabindex', '-1');
+      }
     }
   }
 
@@ -10790,6 +10578,13 @@ body.ft-scroll-lock{overscroll-behavior:none;}
   function focusFirstEmpty() {
     var group = lockGroup();
     if (!group.length) return;
+    /* a focused field is exactly what raises the Android keyboard, so on touch
+       the boxes are never focused: the in-app keypad owns entry */
+    if (window.ftPinTouchMode) {
+      for (var i = 0; i < group.length; i++) { try { group[i].blur(); } catch (e) {} }
+      if (document.activeElement && document.activeElement.blur) { try { document.activeElement.blur(); } catch (e) {} }
+      return;
+    }
     var target = firstEmptyBox(group);
     if (target && document.activeElement !== target) {
       try { target.focus({ preventScroll: true }); } catch (e) { try { target.focus(); } catch (err) {} }
@@ -11361,5 +11156,652 @@ body.ft-scroll-lock{overscroll-behavior:none;}
   }, 2500);
 })();
 
-</script></body>
+</script>
+<script data-ft-android="final-hardening">
+/* FinTrack - Android / WebView hardening layer.
+   Additive only: no stored value, layout or business rule is altered here. */
+(function () {
+  'use strict';
+
+  var NATIVE = false, COARSE = false;
+  try { NATIVE = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform()); } catch (e) {}
+  try { COARSE = window.matchMedia('(pointer: coarse)').matches; } catch (e) {}
+  var TOUCH = NATIVE || COARSE;
+  window.ftPinTouchMode = TOUCH;
+
+  /* ---------- styles ---------- */
+  var css = document.createElement('style');
+  css.id = 'ftAndroidFixStyles';
+  css.textContent = [
+    '/* pan in both directions but never pinch: scrolling keeps its fast path */',
+    'html, body { touch-action: pan-x pan-y; }',
+    'html, body, main, .tab-content, .ft-scroll, .ft-tx-list, #ftSearchResults, [id^="modal"] { -webkit-overflow-scrolling: touch; }',
+    '/* a closed overlay must never keep swallowing taps */',
+    '.ft-overlay.hidden, .ft-overlay[hidden] { display: none !important; pointer-events: none !important; }',
+    '/* one compact month control in every module */',
+    '.ft-month-bar { display: inline-flex; align-items: center; gap: 4px; }',
+    '.ft-month-bar > div.inline-flex, .ft-month-bar > span.inline-flex { gap: 0 !important; padding: 1px 2px !important; border-radius: 9px !important; }',
+    '.ft-month-bar [id^="navLabel_"] { min-width: 72px !important; font-size: 11px !important; letter-spacing: 0 !important; }',
+    '.ft-month-bar button { padding: 3px 5px !important; }',
+    '.ft-this-month { display: none !important; }'
+  ].join('\n');
+  document.head.appendChild(css);
+
+  /* ---------- 1. no pinch zoom (iOS gesture events; Android uses touch-action) ---------- */
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach(function (type) {
+    document.addEventListener(type, function (event) { try { event.preventDefault(); } catch (e) {} }, { passive: false });
+  });
+
+  /* ---------- 2. a focused PIN box is what raises the keyboard: release it ---------- */
+  if (TOUCH) {
+    document.addEventListener('focusin', function (event) {
+      var box = event.target;
+      if (!box || !box.hasAttribute || !box.hasAttribute('data-finpin-lock')) return;
+      try { box.blur(); } catch (e) {}
+    }, true);
+    document.addEventListener('touchstart', function (event) {
+      var box = event.target && event.target.closest ? event.target.closest('input[data-finpin-lock]') : null;
+      if (!box) return;
+      try { event.preventDefault(); } catch (e) {}
+      try { box.blur(); } catch (e) {}
+    }, { passive: false });
+  }
+
+  /* ---------- 3. the running month is selected by default ---------- */
+  var MONTHS = ['incomeMonthSelect', 'cashbookMonthSelect', 'cashbookPdfMonthSelect', 'expenseMonthSelect', 'friendSplitMonthSelect', 'householdMonthSelect', 'debtMonthSelect', 'goldSipMonthSelect', 'transferMonthSelect', 'settlementMonthSelect', 'sharedSplitMonthSelect'];
+  function currentMonth() {
+    if (typeof window.currentMonthStr === 'function') return window.currentMonthStr();
+    var now = new Date();
+    return now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+  }
+  function monthPass() {
+    Array.prototype.forEach.call(document.querySelectorAll('.ft-this-month, [data-ft-thismonth]'), function (node) { node.remove(); });
+    var month = currentMonth();
+    if (!month) return;
+    MONTHS.forEach(function (id) {
+      var node = document.getElementById(id);
+      if (!node || node.value) return;
+      node.value = month;
+      try { if (typeof window.updateMonthNavLabel === 'function') window.updateMonthNavLabel(id); } catch (e) {}
+    });
+  }
+  monthPass();
+  document.addEventListener('DOMContentLoaded', monthPass);
+  window.addEventListener('load', monthPass);
+  document.addEventListener('click', function () { setTimeout(monthPass, 140); }, true);
+  setInterval(monthPass, 2500);
+
+  /* ---------- 4. the balance is never wrong, not even for one frame ---------- */
+  var lastBalance = '', lastUid = '', writingBalance = false;
+  function balanceNode() { return document.getElementById('sumBankBalance'); }
+  function repaintBalance() {
+    if (writingBalance) return;
+    var el = balanceNode();
+    if (!el || typeof window.ftPaintBalance !== 'function') return;
+    if (!window.state || !(window.state.banks || []).length) return;
+    if (String(el.textContent || '').trim() === lastBalance) return;
+    writingBalance = true;
+    try { window.ftPaintBalance(); } catch (e) {}
+    lastBalance = String(el.textContent || '').trim();
+    writingBalance = false;
+  }
+  function watchBalance() {
+    var el = balanceNode();
+    if (!el || el.dataset.ftBalWatch === '1') return;
+    el.dataset.ftBalWatch = '1';
+    try { new MutationObserver(repaintBalance).observe(el, { childList: true, characterData: true, subtree: true }); } catch (e) {}
+  }
+  function balancePass() {
+    var uid = (window.currentUser && window.currentUser.uid) || '';
+    if (uid !== lastUid) { lastUid = uid; lastBalance = ''; }
+    watchBalance();
+    repaintBalance();
+  }
+  balancePass();
+  document.addEventListener('DOMContentLoaded', balancePass);
+  window.addEventListener('load', balancePass);
+  setInterval(balancePass, 600);
+
+  /* ---------- 5. a splash that outlives its boot never keeps the screen ---------- */
+  setTimeout(function () {
+    var splash = document.getElementById('ftLaunchSplash');
+    document.documentElement.classList.remove('ft-booting');
+    if (splash) { splash.style.opacity = '0'; setTimeout(function () { if (splash.parentNode) splash.remove(); }, 400); }
+  }, 2800);
+})();
+</script>
+<style data-ft-update="page-weave-and-month-box">
+/* the page keeps the hexagon weave: faint blue in light mode, translucent white in dark mode */
+:root{--ftpagehex:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cg fill='none' stroke='%231E3A8A' stroke-opacity='.06' stroke-width='1.3'%3E%3Cpath d='M28 0 56 16v32L28 64 0 48V16z'/%3E%3Cpath d='M28 96 0 80V48'/%3E%3Cpath d='M28 96l28-16V48'/%3E%3C/g%3E%3C/svg%3E");}
+body.ft-dark{--ftpagehex:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='96' viewBox='0 0 56 96'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.10' stroke-width='1.3'%3E%3Cpath d='M28 0 56 16v32L28 64 0 48V16z'/%3E%3Cpath d='M28 96 0 80V48'/%3E%3Cpath d='M28 96l28-16V48'/%3E%3C/g%3E%3C/svg%3E");}
+body #appContainer{background-color:var(--ftpage)!important;background-image:var(--ftpagehex)!important;background-repeat:repeat!important;background-size:56px 96px!important;background-position:0 0!important;background-attachment:scroll!important;}
+/* one compact month box, identical to Financial Insights */
+body input.ft-mbox{display:inline-block!important;width:auto!important;max-width:100%!important;min-width:0!important;height:auto!important;min-height:0!important;margin:0!important;padding:5px 8px!important;border:1px solid var(--ftline)!important;border-radius:10px!important;background:var(--ftsurface)!important;color:var(--ftb)!important;font-family:var(--font-body)!important;font-size:11.5px!important;font-weight:700!important;line-height:1.35!important;box-shadow:none!important;outline:none!important;}
+body.ft-dark input.ft-mbox{color:var(--ftink)!important;}
+/* in-app PDF reader */
+#ftPdfOverlay .ft-pdf-pages{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:10px 8px 26px;background:#525659;display:flex;flex-direction:column;align-items:center;gap:10px;}
+#ftPdfOverlay canvas.ft-pdf-page{display:block;width:100%!important;max-width:900px;height:auto!important;background:#fff;border-radius:2px;box-shadow:0 6px 20px #00000059;}
+#ftPdfOverlay .ft-pdf-msg{color:#E2E8F0;font-size:12px;font-weight:700;line-height:1.6;text-align:center;padding:22px 16px;max-width:520px;}
+#ftPdfOverlay .ft-pdf-bar{position:relative;z-index:2;}
+</style>
+<script data-ft-update="uniform-month-box-and-pdf">
+/* global currentUser */
+(function () {
+  'use strict';
+
+  function monthNow() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+  }
+  function say(message) {
+    try { if (typeof window.ftToast === 'function') { window.ftToast(message); return; } } catch (e) {}
+  }
+
+  /* ---------- 1. one compact month box in every module ---------- */
+  function applyMonth(box, hidden, inputId, handler) {
+    var value = box.value || monthNow();
+    if (hidden) hidden.value = value;
+    try { if (typeof window.updateMonthNavLabel === 'function') window.updateMonthNavLabel(inputId); } catch (e) {}
+    var name = String(handler || '').replace(/\(\s*\)\s*$/, '').trim();
+    if (name && typeof window[name] === 'function') {
+      try { window[name](); } catch (error) { console.error('FinTrack month change failed', error); }
+    }
+  }
+
+  function makeMonthBox(inputId, handler) {
+    var hidden = document.getElementById(inputId);
+    var box = document.createElement('input');
+    box.type = 'month';
+    box.className = 'ft-mbox'; box.setAttribute('data-month', inputId); box.setAttribute('data-ft-handler', handler || '');
+    box.setAttribute('aria-label', 'Month');
+    box.value = (hidden && /^\d{4}-\d{2}$/.test(hidden.value || '')) ? hidden.value : monthNow();
+    if (hidden && !hidden.value) hidden.value = box.value;
+    box.onchange = function () { applyMonth(box, hidden, inputId, handler); };
+    return box;
+  }
+
+  function hideMonthLabel(wrap) {
+    var previous = wrap.previousElementSibling;
+    if (!previous || previous.tagName !== 'LABEL') return;
+    var text = String(previous.textContent || '').replace(/\s+/g, ' ').trim();
+    if (/^month\s*:?$/i.test(text)) previous.style.display = 'none';
+  }
+
+  function handlerFor(cluster) { if (cluster && cluster.dataset && cluster.dataset.ftMonthHandler) return cluster.dataset.ftMonthHandler; var b = cluster && cluster.querySelector ? cluster.querySelector('button[onclick*="navMonthPrev("]') : null; var m = b ? /navMonthPrev\(\s*'[^']*'\s*,\s*'([^']*)'\s*\)/.exec(b.getAttribute('onclick') || '') : null; return m ? m[1] : ''; }
+  function monthBoxFor(id) { var l = document.querySelectorAll('input.ft-mbox'); for (var i = 0; i < l.length; i++) if (l[i].getAttribute('data-month') === id) return l[i]; return null; }
+  function upgradeCluster(span) { var id = String(span.id || '').replace(/^navLabel_/, ''), wrap = span.parentElement; if (!id || !wrap || !wrap.parentNode) return; var parent = wrap.parentNode, hidden = document.getElementById(id); if (!hidden) return; hideMonthLabel(wrap); var box = monthBoxFor(id); if (!box) { box = makeMonthBox(id, handlerFor(wrap)); parent.insertBefore(box, wrap); } if (wrap.contains(hidden)) parent.insertBefore(hidden, wrap); if (wrap.parentNode) wrap.parentNode.removeChild(wrap); }
+  function upgradeMonthPickers() { Array.prototype.forEach.call(document.querySelectorAll('span[id^="navLabel_"]'), upgradeCluster); Array.prototype.forEach.call(document.querySelectorAll('button[title="Jump to month"]'), function (b) { var bar = b.parentElement; if (bar && bar.querySelector('input[type="month"]')) b.remove(); }); }
+  function tidyMonthWords() { Array.prototype.forEach.call(document.querySelectorAll('label'), function (l) { if (!l.querySelector('input[type="month"], input.ft-mbox')) return; Array.prototype.slice.call(l.childNodes).forEach(function (n) { if (n.nodeType === 3 && /^\s*month\s*:?\s*$/i.test(n.nodeValue || '')) l.removeChild(n); }); }); }
+  function areaOf(n) { var e = n.parentElement; while (e && e !== document.body) { var k = typeof e.className === 'string' ? e.className : ''; if (/(^|\s)(pastel-|gold-card|ft-card|tab-content)/.test(k)) return e; e = e.parentElement; } return null; }
+  function followMonth(p, f) { f.value = p.value; var t = document.getElementById(f.getAttribute('data-month')); if (t) t.value = p.value; try { if (window.updateAllMonthNavLabels) window.updateAllMonthNavLabels(); } catch (e) {} var name = String(f.getAttribute('data-ft-handler') || '').replace(/\(\s*\)\s*$/, '').trim(); if (name && typeof window[name] === 'function') { try { window[name](); } catch (error) { console.error('FinTrack month change failed', error); } } else if (t) { try { t.dispatchEvent(new Event('change', { bubbles: true })); } catch (e) {} } }
+  function oneCalendarPerArea() { var kept = []; Array.prototype.forEach.call(document.querySelectorAll('input.ft-mbox'), function (box) { var area = areaOf(box); if (!area) return; var p = null; for (var i = 0; i < kept.length; i++) if (kept[i].area === area) p = kept[i].box; if (!p) { kept.push({ area: area, box: box }); box.style.removeProperty('display'); return; } if (box === p) return; if (box._ftPrimary === p) return; box._ftPrimary = p; box.setAttribute('data-ft-follower', p.getAttribute('data-month')); box.style.setProperty('display', 'none', 'important'); p.addEventListener('change', function () { followMonth(p, box); }); followMonth(p, box); }); Array.prototype.forEach.call(document.querySelectorAll('input[type="month"]'), function (native) { if (native.classList.contains('ft-mbox') || native._ftPrimary) return; var area = areaOf(native), box = area && area.querySelector('input.ft-mbox'); if (!box) return; native._ftPrimary = box; native.style.setProperty('display', 'none', 'important'); }); }
+  function monthPass() { try { upgradeMonthPickers(); tidyMonthWords(); oneCalendarPerArea(); } catch (error) { console.error('FinTrack month pass error:', error); } }
+  monthPass();
+  document.addEventListener('DOMContentLoaded', monthPass);
+  window.addEventListener('load', monthPass);
+
+  var hostRenderAll = window.renderAll;
+  if (typeof hostRenderAll === 'function') {
+    window.renderAll = function () { var result = hostRenderAll.apply(this, arguments); setTimeout(monthPass, 40); return result; };
+  }
+  var hostSwitchTab = window.switchTab;
+  if (typeof hostSwitchTab === 'function') {
+    window.switchTab = function () { var result = hostSwitchTab.apply(this, arguments); setTimeout(monthPass, 90); return result; };
+  }
+  setInterval(monthPass, 2500);
+
+  /* ---------- 2. PDF: a real in-app reader plus a save that reaches the phone ---------- */
+  // The native shell must bundle the plugins; the browser never gets a native proxy.
+  window.ftCapacitorPlugin = function (name) {
+    var cap = window.Capacitor;
+    if (!cap || typeof cap.isNativePlatform !== 'function' || !cap.isNativePlatform()) return null;
+    if (typeof cap.isPluginAvailable === 'function' && !cap.isPluginAvailable(name)) return null;
+    return (cap.Plugins && cap.Plugins[name]) || (typeof cap.registerPlugin === 'function' ? cap.registerPlugin(name) : null);
+  };
+  var PDFJS_BASE = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/legacy/build/';
+  var pdfEngine = null, pdfSession = null, savingPdf = false;
+
+  function loadPdfEngine() {
+    if (window.pdfjsLib) {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = PDFJS_BASE + 'pdf.worker.min.js';
+      return Promise.resolve(window.pdfjsLib);
+    }
+    if (pdfEngine) return pdfEngine;
+    pdfEngine = new Promise(function (resolve, reject) {
+      var script = document.createElement('script');
+      script.src = PDFJS_BASE + 'pdf.min.js';
+      script.onload = function () {
+        var lib = window.pdfjsLib;
+        if (!lib) { reject(new Error('PDF reader unavailable')); return; }
+        lib.GlobalWorkerOptions.workerSrc = PDFJS_BASE + 'pdf.worker.min.js';
+        resolve(lib);
+      };
+      script.onerror = function () { script.remove(); reject(new Error('PDF reader could not be downloaded')); };
+      document.head.appendChild(script);
+    }).catch(function (error) { pdfEngine = null; throw error; });
+    return pdfEngine;
+  }
+
+  function closePdfViewer() {
+    if (pdfSession) {
+      pdfSession.closed = true;
+      if (pdfSession.task) Promise.resolve(pdfSession.task.destroy()).catch(function () {});
+      pdfSession = null;
+    }
+    var wrap = document.getElementById('ftPdfOverlay');
+    if (wrap && wrap.parentNode) wrap.parentNode.removeChild(wrap);
+    try { if (typeof window.ftSyncScrollLock === 'function') window.ftSyncScrollLock(); } catch (e) {}
+  }
+
+  function buildPdfViewer(fileName, title) {
+    closePdfViewer();
+    var wrap = document.createElement('div');
+    wrap.id = 'ftPdfOverlay';
+    var bar = document.createElement('div');
+    bar.className = 'ft-pdf-bar';
+    var heading = document.createElement('h3');
+    heading.textContent = title || fileName;
+    var saveButton = document.createElement('button');
+    saveButton.type = 'button';
+    saveButton.className = 'px-3 py-2 bg-[#1E3A8A] text-white font-bold text-xs rounded-lg';
+    saveButton.textContent = 'Download';
+    var closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'px-3 py-2 bg-slate-200 text-slate-800 font-bold text-xs rounded-lg';
+    closeButton.textContent = 'Close';
+    var pages = document.createElement('div');
+    pages.className = 'ft-pdf-pages';
+    var note = document.createElement('p');
+    note.className = 'ft-pdf-msg';
+    note.textContent = 'Preparing the PDF\u2026';
+    pages.appendChild(note);
+    bar.appendChild(heading); bar.appendChild(saveButton); bar.appendChild(closeButton);
+    wrap.appendChild(bar); wrap.appendChild(pages);
+    document.body.appendChild(wrap);
+    closeButton.onclick = closePdfViewer;
+    try { if (typeof window.ftSyncScrollLock === 'function') window.ftSyncScrollLock(); } catch (e) {}
+    return { pages: pages, note: note, save: saveButton };
+  }
+
+  function showPdf(blob, fileName, title) {
+    var view = buildPdfViewer(fileName, title);
+    var session = pdfSession = { closed: false, task: null };
+    view.save.onclick = async function () {
+      view.save.disabled = true; view.save.textContent = 'Saving…';
+      try { return await savePdfBlob(blob, fileName); }
+      finally { view.save.disabled = false; view.save.textContent = 'Download'; }
+    };
+    var bytes = blob.arrayBuffer ? blob.arrayBuffer() : new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () { resolve(reader.result); };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(blob);
+    });
+    var failed = function (error) {
+      if (session.closed) return;
+      console.warn('FinTrack PDF reader failed', error);
+      view.pages.innerHTML = '';
+      var message = document.createElement('p');
+      message.className = 'ft-pdf-msg';
+      message.textContent = 'The PDF preview could not be loaded. Tap Download to use Android’s save / share sheet, or download the file in a browser.';
+      view.pages.appendChild(message);
+    };
+    Promise.all([loadPdfEngine(), bytes]).then(function (results) {
+      if (session.closed) return null;
+      session.task = results[0].getDocument({ data: new Uint8Array(results[1]), isEvalSupported: false, disableStream: true, disableAutoFetch: true });
+      return session.task.promise;
+    }).then(function (pdf) {
+      if (!pdf || session.closed) return;
+      var available = (view.pages.clientWidth || window.innerWidth || 360) - 16;
+      var width = Math.max(240, Math.min(available, 900));
+      var ratio = Math.min(window.devicePixelRatio || 1, 2);
+      view.pages.innerHTML = '';
+      var queue = Promise.resolve();
+      for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+        (function (number) {
+          queue = queue.then(function () {
+            if (session.closed) return;
+            return pdf.getPage(number).then(function (page) {
+              if (session.closed) return;
+              var base = page.getViewport({ scale: 1 });
+              var viewport = page.getViewport({ scale: (width / base.width) * ratio });
+              var canvas = document.createElement('canvas');
+              canvas.className = 'ft-pdf-page';
+              canvas.width = Math.floor(viewport.width);
+              canvas.height = Math.floor(viewport.height);
+              view.pages.appendChild(canvas);
+              return page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise.then(function () { page.cleanup(); });
+            });
+          });
+        })(pageNumber);
+      }
+      return queue;
+    }).catch(failed);
+  }
+
+  function toBase64(blob) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () { resolve(String(reader.result || '').split(',')[1] || ''); };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  function anchorDownload(blob, fileName) {
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.rel = 'noopener';
+    document.body.appendChild(link);
+    try { link.click(); } catch (e) {}
+    setTimeout(function () {
+      try { if (link.parentNode) link.parentNode.removeChild(link); URL.revokeObjectURL(url); } catch (e) {}
+    }, 8000);
+    say('Downloading ' + fileName);
+    return true;
+  }
+
+  function browserSave(blob, fileName) {
+    var file = null;
+    try { file = new File([blob], fileName, { type: 'application/pdf' }); } catch (e) { file = null; }
+    if (file && navigator.share) {
+      var shareable = true;
+      try { if (navigator.canShare) shareable = navigator.canShare({ files: [file] }); } catch (e) { shareable = false; }
+      if (shareable) {
+        try {
+          return Promise.resolve(navigator.share({ files: [file], title: fileName })).then(function () { return true; }).catch(function (error) {
+            if (error && error.name === 'AbortError') return true;
+            return anchorDownload(blob, fileName);
+          });
+        } catch (error) {
+          return Promise.resolve(anchorDownload(blob, fileName));
+        }
+      }
+    }
+    return Promise.resolve(anchorDownload(blob, fileName));
+  }
+
+  function savePdfBlob(blob, fileName) {
+    if (!blob || !blob.size) { alert('The PDF could not be created. Please try again.'); return Promise.resolve(false); }
+    fileName = String(fileName || 'FinTrack-Report.pdf').replace(/[\\/:*?"<>|\x00-\x1F]/g, '_');
+    if (!/\.pdf$/i.test(fileName)) fileName += '.pdf';
+    var cap = window.Capacitor;
+    if (!cap || !cap.isNativePlatform || !cap.isNativePlatform()) return browserSave(blob, fileName);
+    var fs = window.ftCapacitorPlugin('Filesystem'), share = window.ftCapacitorPlugin('Share');
+    if (!fs) { alert('PDF export is unavailable in this Android build: the Filesystem plugin must be installed and synced.'); return Promise.resolve(false); }
+    if (savingPdf) return Promise.resolve(false);
+    savingPdf = true;
+    var path = 'reports/' + fileName, stored = false;
+    async function write(base64, directory) {
+      var result = await fs.writeFile({ path: path, data: base64, directory: directory, recursive: true });
+      var uri = result && result.uri;
+      if (!uri) { var location = await fs.getUri({ path: path, directory: directory }); uri = location && location.uri; }
+      if (!uri) throw new Error('Android did not return the saved file location.');
+      return uri;
+    }
+    return toBase64(blob).then(async function (base64) {
+      if (!base64) throw new Error('The generated PDF is empty.');
+      // DATA persists privately; CACHE is shareable by Android's default FileProvider.
+      await write(base64, 'DATA'); stored = true;
+      if (!share) throw new Error('The Share plugin must be installed and synced to export a copy outside FinTrack.');
+      var uri = await write(base64, 'CACHE');
+      window._ftInAppHandoffAt = Date.now();
+      await share.share({ files: [uri], title: fileName, dialogTitle: 'Save or share ' + fileName });
+      say('Share sheet completed. A copy is also saved inside FinTrack.');
+      return true;
+    }).catch(function (error) {
+      var message = String(error && error.message || error || 'Unknown error');
+      if (/cancel|dismiss/i.test(message)) { say('Save / share cancelled. The PDF remains saved inside FinTrack.'); return false; }
+      console.warn('FinTrack native PDF export failed', error);
+      alert((stored ? 'The PDF is saved inside FinTrack, but a copy could not be exported. ' : 'The PDF could not be saved. ') + message);
+      return false; // Never pretend a WebView blob download exported a file.
+    }).finally(function () { savingPdf = false; });
+  }
+
+  function blobOf(doc) {
+    try { return doc.output('blob'); } catch (error) { return null; }
+  }
+
+  window.ftOpenPdfDocument = function (doc, fileName, title) {
+    var blob = blobOf(doc);
+    if (!blob || !blob.size || blob.size < 700) { alert('The PDF could not be created. Please try again.'); return false; }
+    showPdf(blob, fileName, title || fileName);
+    return true;
+  };
+
+  window.ftDownloadPdfDocument = function (doc, fileName) {
+    var blob = blobOf(doc);
+    if (!blob || !blob.size || blob.size < 700) { alert('The PDF could not be created. Please try again.'); return false; }
+    return savePdfBlob(blob, fileName);
+  };
+
+  window.ftShareOrSavePdf = function (doc, fileName, title, mode) {
+    if (mode === 'view') return window.ftOpenPdfDocument(doc, fileName, title);
+    return window.ftDownloadPdfDocument(doc, fileName);
+  };
+
+  window.ftCapSavePdf = function (doc, fileName) {
+    return savePdfBlob(blobOf(doc), fileName);
+  };
+  // Apply loading/error handling to the final report generators, not superseded ones.
+  ['downloadHouseholdPDF', 'downloadCashbookPDF', 'downloadCashbookPDFByKey'].forEach(function (name) {
+    var generate = window[name], busy = false;
+    window[name] = async function () {
+      if (busy) return false;
+      busy = true;
+      var button = document.activeElement, label = button && button.tagName === 'BUTTON' ? button.innerHTML : null;
+      if (label !== null) { button.disabled = true; button.textContent = 'Preparing…'; }
+      try { await window.ftEnsurePdfLibraries(); return await generate.apply(this, arguments); }
+      catch (error) { alert('Could not prepare the PDF: ' + (error.message || error)); return false; }
+      finally { busy = false; if (label !== null) { button.disabled = false; button.innerHTML = label; } }
+    };
+  });
+  var logoutWithReport = window.handleLogout;
+  window.handleLogout = function () { closePdfViewer(); return logoutWithReport.apply(this, arguments); };
+})();
+</script>
+<script data-ft-layer="push">
+/* Native shell prerequisites (not installable from HTML):
+   - Bundle @capacitor/filesystem, @capacitor/push-notifications, @capacitor/share,
+     and @capacitor/app matching the shell's Capacitor major, then sync Android.
+   - Add the matching Firebase google-services.json to android/app.
+   - Merge plugins.PushNotifications.presentationOptions: [] in Capacitor config
+     and sync/rebuild, so foreground messages NEVER create a system tray entry.
+   - The trusted FCM sender must send notification+data messages for background/
+     terminated delivery, with data.toUid, notificationId, type and channel_id
+     fintrack_alerts. HTML cannot send FCM or run while terminated. Force-stopped
+     apps resume delivery only after manual launch. No web push is installed. */
+(function () {
+  'use strict';
+  var Push = window.ftCapacitorPlugin('PushNotifications');
+  if (!Push) return;
+  var App = window.ftCapacitorPlugin('App'), cap = window.Capacitor;
+  var ASKED_KEY = 'ftPushAsked', inForeground = !document.hidden;
+  var token = '', synced = '', syncing = null, registeredUid = '', checkedUid = '', authUid = '';
+  var permissionWork = null, listenersReady = null, pending = [], seen = new Set();
+  var scheduled = false, draining = false, signingOut = false;
+  function errorState(error) {
+    window.ftPushStatus = 'error';
+    window.ftPushError = String(error && (error.message || error.error) || error || 'Push setup failed');
+    console.warn('FinTrack push setup failed', window.ftPushError);
+  }
+  function storageGet(key) { try { return localStorage.getItem(key) || ''; } catch (e) { return ''; } }
+  function storageSet(key, value) { try { if (value) localStorage.setItem(key, value); else localStorage.removeItem(key); } catch (e) {} }
+  function uidNow() { return window.auth && window.auth.currentUser && window.auth.currentUser.uid || ''; }
+  function ready() {
+    var app = document.getElementById('appContainer'), login = document.getElementById('authContainer');
+    return !signingOut && !document.hidden && inForeground && uidNow() && window.currentUser && window.currentUser.uid === uidNow() &&
+      !window._ftFinpinPendingUser && typeof dataLoaded !== 'undefined' && dataLoaded && app && !app.classList.contains('hidden') && login && login.classList.contains('hidden');
+  }
+  function clearTray() {
+    if (document.hidden || !inForeground) return;
+    Promise.resolve().then(function () { return Push.removeAllDeliveredNotifications(); }).catch(errorState);
+  }
+  async function syncToken() {
+    if (!token || !ready() || !window.db) return;
+    var uid = uidNow(), key = uid + '|' + token, value = token, written = false;
+    if (synced === key) return;
+    if (syncing) return syncing;
+    syncing = window.db.ref('users/' + uid + '/pushToken').set({ token: value, platform: cap.getPlatform ? cap.getPlatform() : 'android', updatedAt: new Date().toISOString() })
+      .then(function () { written = true; if (uidNow() === uid && token === value) synced = key; })
+      .catch(errorState).finally(function () { syncing = null; if (written && ready() && synced !== uidNow() + '|' + token) schedule(); });
+    return syncing;
+  }
+  function rememberToken(result) {
+    if (signingOut || !result || typeof result.value !== 'string' || !result.value) return;
+    token = result.value; window.ftPushToken = token; storageSet('ftPushToken', token);
+    window.ftPushStatus = 'registered'; window.ftPushError = '';
+    syncToken().catch(errorState);
+  }
+  function queueNotification(notification, tapped) {
+    var n = notification || {}, data = n.data || {};
+    if (String(data.silent) === 'true') return;
+    var uid = String(data.toUid || data.recipientUid || uidNow() || '');
+    if (uidNow() && uid && uid !== uidNow()) return;
+    var id = String(data.notificationId || data.noticeId || data.id || n.id || '');
+    var key = uid + '|' + (id || String(n.title || data.title || '') + '|' + String(n.body || data.message || ''));
+    var waiting = pending.find(function (item) { return item.key === key; });
+    if (waiting) { waiting.tapped = waiting.tapped || tapped; return; }
+    if (!tapped && seen.has(key)) return;
+    pending.push({ n: n, data: data, uid: uid, id: id, key: key, tapped: tapped });
+    while (pending.length > 20) { var dropAt = pending.findIndex(function (item) { return !item.tapped; }); pending.splice(dropAt === -1 ? 0 : dropAt, 1); }
+    if (!document.hidden && inForeground) clearTray();
+    schedule();
+  }
+  function openTarget(data) {
+    if (!ready()) return;
+    var kind = String(data.tab || data.target || data.type || '').toLowerCase();
+    var tab = ({ settlement: 'settlements', settlements: 'settlements', settlement_request: 'settlements', receipt: 'settlements', split: 'friends', friendsplit: 'friends', friend: 'friends', friends: 'friends', reminder: 'friends', household: 'household', expense: 'expenses', expenses: 'expenses' })[kind];
+    if (tab && typeof window.switchTab === 'function') window.switchTab(tab);
+    else if (typeof window.ftOpenNotifications === 'function') window.ftOpenNotifications();
+  }
+  async function drain() {
+    if (draining || !ready()) return;
+    draining = true;
+    try {
+      while (pending.length && ready()) {
+        var item = pending[0], uid = uidNow();
+        if (item.uid && item.uid !== uid) { pending.shift(); continue; }
+        var notice = (window._ftNotifData || []).find(function (n) { return item.uid && String(n.id) === item.id; });
+        var noticeId = item.data.notificationId || item.data.noticeId || item.data.id;
+        if (!notice && item.uid && noticeId && !/[.#$\[\]\/]/.test(String(noticeId))) {
+          var snapshot = await window.db.ref('users/' + uid + '/notifications/' + noticeId).once('value');
+          if (snapshot.exists()) notice = Object.assign({}, snapshot.val(), { id: String(noticeId) });
+        }
+        if (!ready() || uidNow() !== uid) return;
+        pending.shift(); seen.add(item.key);
+        if (seen.size > 100) seen.delete(seen.values().next().value);
+        if (item.tapped) openTarget(item.uid ? item.data : {});
+        if (notice && window.ftEnqueueNotification) window.ftEnqueueNotification(notice, item.tapped);
+        else if (window.FTReview && window.FTReview.enqueue) window.FTReview.enqueue({
+          key: 'push|' + uid + '|' + item.key + (item.tapped ? '|tap' : ''),
+          title: item.uid ? String(item.n.title || item.data.title || 'FinTrack') : 'FinTrack',
+          message: item.uid ? String(item.n.body || item.data.message || item.data.body || 'You have a new FinTrack notification.') : 'You have a new notification. Open Notifications for details.',
+          requiresLogin: true, actions: [{ label: 'OK', value: true }]
+        });
+      }
+    } catch (error) { errorState(error); }
+    finally { draining = false; }
+  }
+  function addListeners() {
+    if (listenersReady) return listenersReady;
+    var handles = [];
+    listenersReady = (async function () {
+      for (var entry of [
+        ['registration', rememberToken],
+        ['registrationError', function (error) { registeredUid = ''; errorState(error); }],
+        ['pushNotificationReceived', function (n) { queueNotification(n, false); }],
+        ['pushNotificationActionPerformed', function (action) { queueNotification(action && action.notification, true); }]
+      ]) handles.push(await Push.addListener(entry[0], entry[1]));
+    })().catch(async function (error) {
+      await Promise.all(handles.map(function (h) { return Promise.resolve().then(function () { return h.remove(); }).catch(function () {}); }));
+      listenersReady = null; throw error;
+    });
+    return listenersReady;
+  }
+  async function enable(force) {
+    if (!ready()) return false;
+    if (permissionWork) return permissionWork;
+    var uid = uidNow();
+    if (!force && checkedUid === uid) { await syncToken(); return window.ftPushStatus === 'registered'; }
+    permissionWork = (async function () {
+      await addListeners();
+      var permissions = await Push.checkPermissions();
+      if (!ready() || uidNow() !== uid) return false;
+      checkedUid = uid;
+      var state = permissions && permissions.receive || 'prompt';
+      window.ftPushStatus = state;
+      if ((state === 'prompt' || state === 'prompt-with-rationale') && (force || storageGet(ASKED_KEY) !== '1')) {
+        storageSet(ASKED_KEY, '1');
+        permissions = await Push.requestPermissions();
+        state = permissions && permissions.receive || 'denied'; window.ftPushStatus = state;
+      }
+      if (state !== 'granted') return false;
+      if (!ready() || uidNow() !== uid) { checkedUid = ''; return false; }
+      await Push.createChannel({ id: 'fintrack_alerts', name: 'FinTrack alerts', description: 'Household, split and settlement updates', importance: 5, visibility: 0, lights: true, vibration: true });
+      if (!ready() || uidNow() !== uid) { checkedUid = ''; return false; }
+      if (registeredUid !== uid) { registeredUid = uid; await Push.register(); }
+      await syncToken();
+      return true;
+    })().catch(function (error) { registeredUid = ''; errorState(error); return false; }).finally(function () { permissionWork = null; });
+    return permissionWork;
+  }
+  function schedule() {
+    if (scheduled) return;
+    scheduled = true;
+    Promise.resolve().then(function () { scheduled = false; if (ready()) { enable(false).catch(errorState); drain(); } });
+  }
+  window.ftEnablePush = function (force) { return enable(force !== false); };
+  function resume(active) {
+    inForeground = active;
+    if (active) { checkedUid = ''; clearTray(); schedule(); }
+  }
+  document.addEventListener('visibilitychange', function () { resume(!document.hidden); });
+  window.addEventListener('online', function () { checkedUid = ''; schedule(); });
+  if (App) {
+    Promise.resolve().then(function () { return App.addListener('appStateChange', function (state) { resume(!!state.isActive); }); }).catch(errorState);
+    Promise.resolve().then(function () { return App.getState(); }).then(function (state) { resume(!!state.isActive); }).catch(errorState);
+  }
+  var observer = new MutationObserver(schedule);
+  ['appContainer', 'authContainer'].forEach(function (id) { var el = document.getElementById(id); if (el) observer.observe(el, { attributes: true, attributeFilter: ['class'] }); });
+  var render = window.renderAll;
+  if (typeof render === 'function') window.renderAll = function () { var result = render.apply(this, arguments); schedule(); return result; };
+  if (window.auth && window.auth.onAuthStateChanged) window.auth.onAuthStateChanged(function (user) {
+    checkedUid = ''; synced = ''; registeredUid = '';
+    if (!user && authUid) { pending = []; seen.clear(); token = ''; window.ftPushToken = ''; storageSet('ftPushToken', ''); }
+    authUid = user && user.uid || ''; schedule();
+  });
+  // Actual sign-out revokes this device's token, without changing PIN-only locking.
+  var signOut = window.signOut;
+  if (typeof signOut === 'function') window.signOut = async function () {
+    signingOut = true;
+    try {
+      if (syncing) await Promise.race([syncing, new Promise(function (resolve) { setTimeout(resolve, 1500); })]);
+      var uid = uidNow(), value = token || storageGet('ftPushToken');
+      if (uid && value && window.db) await Promise.race([window.db.ref('users/' + uid + '/pushToken').transaction(function (stored) { if (!stored || stored.token === value) return null; }), new Promise(function (resolve) { setTimeout(resolve, 1500); })]);
+    } catch (error) { errorState(error); }
+    try { await Push.unregister(); } catch (error) { errorState(error); }
+    token = ''; synced = ''; registeredUid = ''; checkedUid = ''; pending = []; seen.clear();
+    window.ftPushToken = ''; storageSet('ftPushToken', '');
+    try { return await signOut.apply(this, arguments); }
+    finally { signingOut = false; }
+  };
+  addListeners().then(schedule).catch(errorState);
+  schedule();
+})();
+</script>
+<script data-ft-layer="table-align">
+/* FinTrack — money tables: dates as DD/MM/YYYY; each table keeps its own horizontal scroll */
+(function () {
+  'use strict';
+  var TBODIES = ['expensesTable', 'hhExpensesTable', 'friendSplitsTable', 'friendLedgerHistoryTable', 'hhSettlementsTable', 'settlementsTable', 'cashTable', 'bankType1Table', 'bankType2Table', 'creditCardTable', 'goldTable', 'sipTable', 'transfersTable', 'debtsTable'];
+  function dmy(t) { var s = String(t || '').trim(), m = s.match(/^(\d{4})-(\d{2})-(\d{2})/); if (m) return m[3] + '/' + m[2] + '/' + m[1]; m = s.match(/^(\d{4})-(\d{2})$/); return m ? m[2] + '/' + m[1] : s; }
+  function tidy(tbody) { for (var i = 0; i < tbody.rows.length; i++) { var row = tbody.rows[i]; if (!row.cells.length || row.cells[0].colSpan > 1) continue; var first = row.cells[0], shown = dmy(first.textContent); if (shown !== first.textContent.trim()) first.textContent = shown; } }
+  function watch(tbody) { tidy(tbody); new MutationObserver(function () { tidy(tbody); }).observe(tbody, { childList: true, subtree: true }); }
+  TBODIES.forEach(function (id) { var tb = document.getElementById(id); if (tb) watch(tb); });
+})();
+</script>
+</body>
 </html>
